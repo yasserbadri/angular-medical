@@ -1,0 +1,67 @@
+<div class="container mt-4">
+    <h2>Liste des Rendez-vous</h2>
+  
+    <!-- Formulaire d'ajout / modification -->
+    <form (ngSubmit)="onSubmit()" #appointmentForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <input type="datetime-local" [(ngModel)]="formData.date" name="date" required class="form-control" />
+        </div>
+        <div class="col">
+          <input type="number" [(ngModel)]="formData.patientId" name="patientId" placeholder="Patient ID" required class="form-control" />
+        </div>
+        <div class="col">
+          <input type="number" [(ngModel)]="formData.doctorId" name="doctorId" placeholder="Docteur ID" required class="form-control" />
+        </div>
+        <div class="col">
+          <input type="text" [(ngModel)]="formData.description" name="description" placeholder="Description" class="form-control" />
+        </div>
+        <div class="col">
+          <select [(ngModel)]="formData.status" name="status" required class="form-control">
+            <option value="Scheduled">Prévu</option>
+            <option value="Completed">Terminé</option>
+            <option value="Cancelled">Annulé</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">
+            {{ formData.id ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <!-- Tableau -->
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Patient ID</th>
+          <th>Docteur ID</th>
+          <th>Description</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.id }}</td>
+          <td>{{ appointment.date | date: 'short' }}</td>
+          <td>{{ appointment.patientId }}</td>
+         
+          <td>{{ appointment.doctorId }}</td>
+          <td>{{ appointment.description }}</td>
+          <td>{{ appointment.status }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="editAppointment(appointment)">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteAppointment(appointment.id!)"
+            >Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

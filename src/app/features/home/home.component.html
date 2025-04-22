@@ -1,0 +1,125 @@
+<p>home works!</p>
+<section class="banner-section">
+    <div class="content-wrapper">
+      <h1>Prise de rendez-vous médical en ligne</h1>
+      <p class="subtitle">Rapide, gratuit et sécurisé</p>
+  
+      <div class="tabs">
+        <button [class.active]="selectedTab === 'medecins'" (click)="selectTab('medecins')">
+          👨‍⚕️ Médecins
+        </button>
+        <button [class.active]="selectedTab === 'douce'" (click)="selectTab('douce')">
+          🍃 Médecine Douce
+        </button>
+        <button [class.active]="selectedTab === 'cliniques'" (click)="selectTab('cliniques')">
+          🏥 Cliniques
+        </button>
+      </div>
+  
+      <div class="form">
+        <input placeholder="Nom du professionnel de santé" />
+        <input placeholder="Choisir le Gouvernorat" />
+        <input placeholder="Choisir la Spécialité" />
+        <button class="search-btn">
+          🔍 Rechercher
+        </button>
+      </div>
+  
+      <div class="actions">
+        <button class="btn secondary">Vous êtes un praticien?</button>
+        <button class="btn primary">Connexion</button>
+      </div>
+    </div>
+  
+    <ul class="social-links">
+      <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+      <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+      <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+      <li><a href="#"><i class="fab fa-x-twitter"></i></a></li>
+      <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+    </ul>
+  </section>
+  <section class="doctors-section">
+    <h2>Médecins Disponibles</h2>
+  
+    <div class="doctors-grid">
+      <div class="doctor-card" *ngFor="let doctor of doctors">
+        <img class="avatar" [src]="doctor.image" alt="doctor" />
+        <p class="speciality">{{ doctor.speciality }}</p>
+        <h3>{{ doctor.name }} <span class="verified">✔</span></h3>
+        <p class="location">
+          <i class="fas fa-map-marker-alt"></i> {{ doctor.city }}, {{ doctor.zone }}
+        </p>
+  
+        <button class="appointment-btn">
+          👁 Rendez vous
+        </button>
+      </div>
+    </div>
+  </section>
+   <!-- Spécialités -->
+   <section class="specialities-section">
+    <h2>Nos spécialités médicales</h2>
+    <div class="speciality-grid">
+      <div class="speciality-card" *ngFor="let spec of specialities">
+        <img [src]="spec.image" alt="Spécialité">
+        <h3>{{ spec.title }}</h3>
+        <p>{{ spec.description }}</p>
+      </div> <!-- chaque item -->
+    </div> <!-- .speciality-grid -->
+  </section> <!-- section spéciale -->
+  
+
+  <!-- Établissements -->
+  <section class="establishments-section">
+    <h2>Établissements partenaires</h2>
+    <div class="establishment-grid">
+      <div class="establishment-card" *ngFor="let est of establishments">
+        <img [src]="est.image" alt="Hôpital">
+        <h3>{{ est.name }}</h3>
+        <p>{{ est.location }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal médical -->
+  <section class="medical-news-section">
+    <h2>Journal médical</h2>
+    <div class="news-grid">
+      <div class="news-card" *ngFor="let news of medicalNews">
+        <h3>{{ news.title }}</h3>
+        <p>{{ news.summary }}</p>
+        <a [href]="news.link" target="_blank">Lire plus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  <section class="testimonials-section">
+    <h2>Témoignages de nos patients</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card" *ngFor="let t of testimonials">
+        <p>"{{ t.comment }}"</p>
+        <strong>{{ t.name }}</strong>
+      </div>
+    </div>
+  </section>
+
+
+  
+<div class="home-container" [@fadeIn]>
+    <div class="hero">
+      <h1>Bienvenue sur <span class="brand">MedApp</span></h1>
+      <p>Gérez vos rendez-vous médicaux facilement, rapidement et en toute sécurité.</p>
+      <a routerLink="/appointments" class="btn-primary">Prendre un rendez-vous</a>
+    </div>
+  
+    <div class="features">
+      <div class="feature-card" *ngFor="let feature of features" [@slideInUp]>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+  
