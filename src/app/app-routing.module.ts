@@ -6,6 +6,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { UsersComponent } from './features/users/users.component';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 import { HomeComponent } from './features/home/home.component';
+import { AppointmentsComponent } from './features/appointments/appointments.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,9 +14,9 @@ const routes: Routes = [
   // Routes hors layout
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
+  {path: 'appointments', component:AppointmentsComponent}
   // Routes avec layout
-  {
+  ,{
     path: '',
     component: LayoutComponent,
     children: [

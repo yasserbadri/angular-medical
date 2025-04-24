@@ -1,0 +1,29 @@
+.coordonnees-card {
+    padding: 20px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 0 10px #eee;
+  
+    .socials {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+      }
+      .facebook {
+        background: #1877f2;
+      }
+      .instagram {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      }
+      .siteweb {
+        background: #232323;
+      }
+    }
+  }

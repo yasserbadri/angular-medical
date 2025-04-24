@@ -1,0 +1,42 @@
+.doctor-details-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+  
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  
+    .facebook {
+      background: #1877f2;
+    }
+  
+    .instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+  
+    .website {
+      background: #2d2d2d;
+    }
+  
+    button:hover {
+      opacity: 0.85;
+    }
+  }
+  

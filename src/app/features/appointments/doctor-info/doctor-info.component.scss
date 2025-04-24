@@ -1,0 +1,79 @@
+/* src/app/features/appointments/doctor-info/doctor-info.component.scss */
+
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  
+    .card-body {
+      padding: 1.5rem;
+  
+      .d-flex.align-items-center.mb-3 {
+        .rounded-circle {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          margin-right: 1rem;
+        }
+  
+        div {
+          h5.card-title {
+            margin-bottom: 0.25rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+  
+            i.bi-patch-check-fill {
+              font-size: 0.9rem;
+              margin-left: 0.25rem;
+              color: #28a745; /* Couleur verte Bootstrap success */
+            }
+          }
+  
+          p.card-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d; /* Couleur grise Bootstrap muted */
+            margin-bottom: 0;
+          }
+  
+          p.card-text.small {
+            font-size: 0.8rem;
+            color: #6c757d; /* Couleur grise Bootstrap muted */
+            margin-bottom: 0.1rem;
+          }
+        }
+      }
+  
+      .d-flex.justify-content-around.mb-3 {
+        a.btn.btn-outline-primary,
+        a.btn.btn-outline-success,
+        a.btn.btn-outline-danger {
+          font-size: 0.85rem;
+          padding: 0.5rem 1rem;
+  
+          i {
+            font-size: 0.8rem;
+            margin-right: 0.25rem;
+          }
+        }
+      }
+  
+      .d-flex.justify-content-center.gap-2 {
+        a.btn.btn-primary,
+        a.btn.btn-danger,
+        a.btn.btn-secondary {
+          font-size: 0.85rem;
+          padding: 0.5rem 1rem;
+  
+          i {
+            font-size: 0.8rem;
+            margin-right: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+/* doctor-info.component.scss */
+.rounded-circle {
+    object-fit: cover; /* Pour que l'image remplisse le cercle sans distorsion */
+  }

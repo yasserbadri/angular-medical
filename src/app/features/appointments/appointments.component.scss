@@ -1,0 +1,311 @@
+.appointment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+
+  app-header-appointment {
+    margin-bottom: 1rem;
+  }
+
+  // Wrapper pour les deux blocs principaux
+  .main-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    // Appliquer un style propre à chaque composant
+    app-doctor-details,
+    app-appointment-booking {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      flex: 1 1 48%;
+    }
+
+    // Taille fixe pour le calendrier si tu veux qu'il reste bien structuré
+    app-appointment-booking {
+      max-width: 420px;
+    }
+
+    app-doctor-details {
+      flex-grow: 1;
+    }
+  }
+}
+
+/*.appointment-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #333;
+  
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #ddd;
+      z-index: 100;
+  
+      .info {
+        span {
+          margin-right: 1rem;
+          font-size: 0.9rem;
+          color: #666;
+        }
+      }
+  
+      .actions {
+        .action-btn {
+          background: none;
+          border: 1px solid #1976d2;
+          color: #1976d2;
+          padding: 0.3rem 0.8rem;
+          margin-left: 0.5rem;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.3s;
+  
+          &:hover {
+            background-color: #1976d2;
+            color: white;
+          }
+        }
+      }
+    }
+  
+    .sidebar {
+      width: 250px;
+      padding: 5rem 1rem 1rem;
+      background-color: #f0f2f5;
+      border-right: 1px solid #ddd;
+      position: fixed;
+      height: 100%;
+  
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #1976d2;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          padding: 0.7rem 0;
+          cursor: pointer;
+  
+          &.active {
+            font-weight: bold;
+            color: #1976d2;
+          }
+  
+          &:hover {
+            color: #1976d2;
+          }
+        }
+      }
+    }
+  
+    .content {
+      margin-left: 250px;
+      padding: 6rem 2rem 2rem;
+      width: calc(100% - 250px);
+      display: flex;
+  
+      .doctor-profile {
+        flex: 1;
+        padding-right: 2rem;
+  
+        h1 {
+          font-size: 2rem;
+          color: #0d47a1;
+          margin-bottom: 1.5rem;
+        }
+  
+        .section {
+          margin-bottom: 2rem;
+  
+          h2 {
+            font-size: 1.3rem;
+            color: #1976d2;
+            margin-bottom: 0.8rem;
+          }
+  
+          ul {
+            list-style-type: none;
+            padding-left: 1rem;
+  
+            li {
+              margin-bottom: 0.5rem;
+              position: relative;
+              padding-left: 1.5rem;
+  
+              &::before {
+                content: "-";
+                position: absolute;
+                left: 0;
+                color: #1976d2;
+              }
+            }
+          }
+  
+          &.social ul li {
+            cursor: pointer;
+            &:hover {
+              color: #1976d2;
+              text-decoration: underline;
+            }
+          }
+  
+          &.description p {
+            line-height: 1.6;
+          }
+        }
+      }
+  
+      .appointment-form {
+        width: 400px;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+        h2 {
+          font-size: 1.5rem;
+          color: #0d47a1;
+          margin-bottom: 1rem;
+        }
+  
+        p {
+          margin-bottom: 1.5rem;
+          color: #666;
+        }
+  
+        .appointment-type {
+          display: flex;
+          margin-bottom: 2rem;
+  
+          .type-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            background: none;
+            cursor: pointer;
+  
+            &.active {
+              background-color: #1976d2;
+              color: white;
+              border-color: #1976d2;
+            }
+  
+            &:first-child {
+              border-radius: 4px 0 0 4px;
+            }
+  
+            &:last-child {
+              border-radius: 0 4px 4px 0;
+            }
+          }
+        }
+  
+        .calendar {
+          margin-bottom: 2rem;
+  
+          .week-days, .dates {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+  
+            .day, .date {
+              flex: 1;
+              padding: 0.5rem;
+            }
+          }
+  
+          .week-days {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 0.5rem;
+          }
+  
+          .dates {
+            .date {
+              cursor: pointer;
+              border-radius: 4px;
+  
+              &:hover {
+                background-color: #f0f7ff;
+              }
+  
+              &.selected {
+                background-color: #1976d2;
+                color: white;
+              }
+            }
+          }
+        }
+  
+        .time-slots {
+          h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+          }
+  
+          .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+  
+            .time-slot {
+              padding: 0.6rem;
+              background-color: #f8f9fa;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: all 0.3s;
+  
+              &:hover {
+                background-color: #e3f2fd;
+                border-color: #1976d2;
+              }
+  
+              &.selected {
+                background-color: #1976d2;
+                color: white;
+                border-color: #1976d2;
+              }
+            }
+          }
+        }
+  
+        .see-more {
+          margin-top: 1.5rem;
+          width: 100%;
+          padding: 0.8rem;
+          background: none;
+          border: 1px solid #1976d2;
+          color: #1976d2;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.3s;
+  
+          &:hover {
+            background-color: #1976d2;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  */

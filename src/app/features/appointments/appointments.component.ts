@@ -135,4 +135,37 @@ export class AppointmentsComponent implements OnInit {
       status: 'Scheduled'
     };
   }
+
+
+
+
+
+
+  selectedDate: string | null = null;
+  selectedTime: string | null = null;
+  appointmentType: 'cabinet' | 'online' = 'cabinet';
+
+  dates = [
+    { day: '22 avril', date: '2024-04-22' },
+    { day: '23 avril', date: '2024-04-23' },
+    { day: '24 avril', date: '2024-04-24' }
+  ];
+
+  timeSlots = [
+    '09:00', '09:15', '09:30', '09:45',
+    '10:00', '10:15', '10:30', '10:45'
+  ];
+
+  selectDate(date: string) {
+    this.selectedDate = date;
+  }
+
+  selectTime(time: string) {
+    this.selectedTime = time;
+  }
+
+  setAppointmentType(type: 'cabinet' | 'online') {
+    this.appointmentType = type;
+  }
+  
 }

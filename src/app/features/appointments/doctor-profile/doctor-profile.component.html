@@ -1,0 +1,17 @@
+<div class="doctor-card">
+    <div class="header">
+      <img [src]="doctor.photo" alt="Doctor Photo" class="photo" />
+      <div class="info">
+        <h2>{{ doctor.name }} <span class="verified">✔</span></h2>
+        <span class="specialty">{{ doctor.specialty }}</span>
+        <p class="university">{{ doctor.university }}</p>
+        <p class="degree">{{ doctor.degree }}</p>
+      </div>
+    </div>
+    <div class="contacts">
+      <button *ngFor="let method of doctor.contactMethods" [ngClass]="method.color + ' contact-button ' + method.style">
+        {{ method.icon }} {{ method.type }}
+      </button>
+    </div>
+  </div>
+  

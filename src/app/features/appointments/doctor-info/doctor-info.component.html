@@ -1,0 +1,40 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center mb-3">
+        <img [src]="imageUrl" alt="Avatar du docteur" class="rounded-circle me-3" width="80" height="80" *ngIf="imageUrl">
+        <div>
+          <h5 class="card-title mb-1">{{ doctorName }} <i class="bi bi-patch-check-fill text-success"></i></h5>
+          <p class="card-subtitle mb-0 text-muted">{{ specialty }}</p>
+          <p class="card-text small text-muted">{{ degree1 }}</p>
+          <p class="card-text small text-muted">{{ degree2 }}</p>
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-around mb-3">
+        <a [href]="emailLink" class="btn btn-outline-primary btn-sm rounded-pill" *ngIf="emailLink">
+          <i class="bi bi-envelope me-1"></i> Email
+        </a>
+        <a [href]="callLink" class="btn btn-outline-success btn-sm rounded-pill" *ngIf="callLink">
+          <i class="bi bi-telephone-fill me-1"></i> Appel
+        </a>
+        <a [href]="itineraryLink" class="btn btn-outline-danger btn-sm rounded-pill" *ngIf="itineraryLink">
+          <i class="bi bi-geo-alt-fill me-1"></i> Itinéraire
+        </a>
+        <a [href]="whatsappLink" class="btn btn-outline-success btn-sm rounded-pill" *ngIf="whatsappLink">
+          <i class="bi bi-whatsapp me-1"></i> WhatsApp
+        </a>
+      </div>
+  
+      <div class="d-flex justify-content-center gap-2">
+        <a [href]="facebookLink" class="btn btn-primary btn-sm rounded-pill" *ngIf="facebookLink">
+          <i class="bi bi-facebook me-1"></i> Facebook
+        </a>
+        <a [href]="instagramLink" class="btn btn-danger btn-sm rounded-pill" *ngIf="instagramLink">
+          <i class="bi bi-instagram me-1"></i> Instagram
+        </a>
+        <a [href]="websiteLink" class="btn btn-secondary btn-sm rounded-pill" *ngIf="websiteLink">
+          <i class="bi bi-globe me-1"></i> Site Web
+        </a>
+      </div>
+    </div>
+  </div>

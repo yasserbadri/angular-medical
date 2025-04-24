@@ -1,0 +1,43 @@
+<div class="appointment-container">
+    <h2 class="header">PRISE DE RENDEZ-VOUS</h2>
+  
+    <label for="typeSelect">Choisissez le type de rendez-vous souhaité :</label>
+    <select id="typeSelect" [(ngModel)]="appointmentType">
+      <option value="cabinet">Au cabinet</option>
+      <option value="visio">En ligne</option>
+    </select>
+  
+    <div class="calendar-wrapper">
+      <div class="calendar-header">
+        <button (click)="previousWeek()">&lt;</button>
+        <span>Semaine du {{ startOfWeek | date: 'dd MMMM yyyy' }}</span>
+        <button (click)="nextWeek()">&gt;</button>
+      </div>
+  
+      <div class="calendar">
+        <div class="day-column" *ngFor="let day of weekDates">
+          <div class="day-name">{{ day | date: 'EEEE' }}</div>
+          <div class="day-date">{{ day | date: 'dd MMM' }}</div>
+  
+          <div *ngFor="let hour of visibleSlots">
+            <button
+              class="slot"
+              [disabled]="!isSlotAvailable(day, hour)"
+              [ngClass]="{'active': isSelected(day, hour)}"
+              (click)="selectSlot(day, hour)">
+              {{ hour }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <button class="view-more" (click)="toggleSlotsVisibility()">
+        {{ showAllSlots ? 'Voir moins' : 'Voir plus' }}
+      </button>
+  
+    <div class="footer">
+      <button class="confirm-button" [disabled]="!selectedSlot">✅ Confirmer</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,105 @@
+.appointment-container {
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    background: linear-gradient(to right, #00c9ff, #3b4cc0);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .calendar-wrapper {
+    overflow-x: auto;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .calendar {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .day-column {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .day-name {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  
+  .slot {
+    display: block;
+    margin: 0.3rem auto;
+    padding: 0.3rem;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    background: #e6f7ff;
+    cursor: pointer;
+  
+    &.active {
+      background: #3b4cc0;
+      color: white;
+    }
+  
+    &:disabled {
+      background: #ddd;
+      cursor: not-allowed;
+    }
+  }
+  
+  .view-more {
+    margin-top: 1rem;
+    background: #000066;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+  }
+  
+  .footer {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .confirm-button {
+    padding: 0.5rem 1.5rem;
+    background: #1ecb91;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+  
+    &:disabled {
+      background: #d2f5e5;
+      color: #888;
+    }
+  }
+  

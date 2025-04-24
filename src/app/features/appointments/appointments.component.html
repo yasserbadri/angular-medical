@@ -1,8 +1,135 @@
+<div class="appointment-container">
+  <app-header-appointment></app-header-appointment>
+
+  <div class="main-content">
+    <app-doctor-details></app-doctor-details>
+    <app-appointment-booking></app-appointment-booking>
+  </div>
+</div>
+
+<!--<div class="appointment-container">
+  <app-header-appointment></app-header-appointment>
+  <app-doctor-info
+  [doctorName]="'Dr. Gharbi Hatem'"
+  [specialty]="'Généraliste'"
+  [degree1]="'Médecin de faculté de médecin de tunis'"
+  [degree2]="'Diplômé docteur en médecine de la faculté de médecine de Tunis'"
+  [imageUrl]="'URL_DE_L_IMAGE_DU_DOCTEUR'"
+  [emailLink]="'mailto:docteur@exemple.com'"
+  [callLink]="'tel:+216XXXXXXXX'"
+  [itineraryLink]="'https://www.google.com/maps?q=...'"
+  [whatsappLink]="'https://wa.me/+216XXXXXXXX'"
+  [facebookLink]="'https://www.facebook.com/...'"
+  [instagramLink]="'https://www.instagram.com/...'"
+  [websiteLink]="'https://www.site-web.com/'"
+></app-doctor-info>
+<app-doctor-details></app-doctor-details>
+  <app-appointment-booking></app-appointment-booking>
+-->
+
+
+
+<!--<nav class="sidebar">
+    <h2>Accueil</h2>
+    <ul>
+      <li class="active"><strong>WIC Dr.</strong></li>
+      <li>Nos Solutions</li>
+      <li>Partenaire WIC Dr</li>
+      <li>Nos Tarifs</li>
+      <li>Soins des patients</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <div class="doctor-profile">
+      <h1>Dr. Gharbi Hatem</h1>
+      
+      <div class="section">
+        <h2>Direction</h2>
+        <ul>
+          <li>Médecin de faculté de médecine de Tunis</li>
+          <li>Diplômé docteur en médecine de la faculté de médecine de Tunis</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Email</h2>
+        <ul>
+          <li>Appel</li>
+          <li>Titulariste</li>
+          <li>WhatsApp</li>
+        </ul>
+      </div>
+
+      <div class="section social">
+        <h2>Réseaux sociaux</h2>
+        <ul>
+          <li>Facebook</li>
+          <li>Instagram</li>
+          <li>Site Web</li>
+        </ul>
+      </div>
+
+      <div class="section description">
+        <h2>Description</h2>
+        <p>Dr. Gharbi Hatem<br>
+        Diplômé en médecine de la faculté de médecine de Tunis.</p>
+      </div>
+
+      <div class="section specialties">
+        <h2>Spécialités</h2>
+        <ul>
+          <li>Médecine générale</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="appointment-form">
+      <h2>PRISE DE RENDEZ-VOUS</h2>
+      <p>Choisissez le type de rendez-vous souhaité :</p>
+
+      <div class="appointment-type">
+        <button class="type-btn active">Au cabinet</button>
+        <button class="type-btn">En ligne</button>
+      </div>
+
+      <div class="calendar">
+        <div class="week-days">
+          <div class="day">matin</div>
+          <div class="day">mercredi</div>
+          <div class="day">jeudi</div>
+        </div>
+        <div class="dates">
+          <div class="date">22 avril</div>
+          <div class="date">23 avril</div>
+          <div class="date">24 avril</div>
+        </div>
+      </div>
+
+      <div class="time-slots">
+        <h3>Heures disponibles :</h3>
+        <div class="slots-grid">
+          <button class="time-slot">09:00</button>
+          <button class="time-slot">09:15</button>
+          <button class="time-slot">09:30</button>
+          <button class="time-slot">09:45</button>
+        </div>
+      </div>
+
+      <button class="see-more">Voir plus</button>
+    </div>
+  </main>
+</div>
+
+
+
+
 <div class="container mt-4">
-    <h2>Liste des Rendez-vous</h2>
+    <h2>Liste des Rendez-vous</h2>-->
   
     <!-- Formulaire d'ajout / modification -->
-    <form (ngSubmit)="onSubmit()" #appointmentForm="ngForm">
+    <!--<form (ngSubmit)="onSubmit()" #appointmentForm="ngForm">
       <div class="row">
         <div class="col">
           <input type="datetime-local" [(ngModel)]="formData.date" name="date" required class="form-control" />
@@ -32,9 +159,9 @@
     </form>
   
     <hr />
-  
+  -->
     <!-- Tableau -->
-    <table class="table table-bordered table-striped mt-3">
+  <!--  <table class="table table-bordered table-striped mt-3">
       <thead>
         <tr>
           <th>ID</th>
@@ -64,4 +191,4 @@
       </tbody>
     </table>
   </div>
-  
+-->
