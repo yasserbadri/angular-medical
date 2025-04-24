@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LayoutModule } from './components/layout/layout.module';
 import { HomeComponent } from './features/home/home.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { HomeComponent } from './features/home/home.component';
     DashboardModule,
     UsersModule,
     FormsModule,
-    
+    SharedModule
     
   ],
   providers: [],

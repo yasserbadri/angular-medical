@@ -1,105 +1,289 @@
 .appointment-container {
-    padding: 1rem;
+    padding: 2rem;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    margin: 2rem auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
   .header {
-    background: linear-gradient(to right, #00c9ff, #3b4cc0);
+    background: linear-gradient(135deg, #83D1C3 0%, #18167A 100%);
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 10px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(24, 22, 122, 0.2);
   }
   
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
   
-  select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+  /* Section Doctor Details */
+  .doctor-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    
+    h2 {
+      color: #18167A;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
   }
   
+  /* Section Appointment */
+  .appointment-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 1rem;
+  
+    h3 {
+      color: #18167A;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+  }
+  
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 1.5rem;
+  
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+  
+    select, input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+  
+      &:focus {
+        border-color: #83D1C3;
+        box-shadow: 0 0 0 3px rgba(131, 209, 195, 0.2);
+        outline: none;
+      }
+    }
+  }
+  
+  /* Calendar Styles */
   .calendar-wrapper {
-    overflow-x: auto;
+    margin-top: 1.5rem;
   }
   
   .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  
+    .month-year {
+      font-weight: 600;
+      color: #18167A;
+      font-size: 1.1rem;
+    }
+  
+    .nav-buttons {
+      display: flex;
+      gap: 0.5rem;
+  
+      button {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+  
+        &:hover {
+          background: #f0f0f0;
+        }
+      }
+    }
   }
   
   .calendar {
     display: flex;
     gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
   }
   
   .day-column {
+    min-width: 100px;
     flex: 1;
     text-align: center;
-  }
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.5rem;
   
-  .day-name {
-    font-weight: bold;
-    margin-bottom: 0.2rem;
+    .day-name {
+      font-weight: 600;
+      color: #18167A;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid #eee;
+    }
   }
   
   .slot {
     display: block;
-    margin: 0.3rem auto;
-    padding: 0.3rem;
-    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    width: 90%;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     background: #e6f7ff;
+    color: #0066cc;
     cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  
+    &:hover {
+      background: #cceeff;
+    }
   
     &.active {
-      background: #3b4cc0;
+      background: linear-gradient(135deg, #83D1C3 0%, #18167A 100%);
       color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(24, 22, 122, 0.2);
     }
   
     &:disabled {
-      background: #ddd;
+      background: #f0f0f0;
+      color: #aaa;
       cursor: not-allowed;
+      opacity: 0.7;
     }
   }
   
+  /* Buttons */
   .view-more {
     margin-top: 1rem;
-    background: #000066;
+    background: #18167A;
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
     border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: center;
+  
+    &:hover {
+      background: #0f0d5a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 22, 122, 0.3);
+    }
   }
   
   .footer {
-    margin-top: 1rem;
+    margin-top: 2rem;
     text-align: center;
   }
   
   .confirm-button {
-    padding: 0.5rem 1.5rem;
-    background: #1ecb91;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #1ecb91 0%, #0da67a 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(30, 203, 145, 0.3);
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(30, 203, 145, 0.4);
+    }
   
     &:disabled {
       background: #d2f5e5;
       color: #888;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
   }
   
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .appointment-container {
+      padding: 1rem;
+    }
+  
+    .calendar {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .day-column {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  /* Checkbox Styles for Doctor Details */
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  
+    input[type="checkbox"] {
+      margin-right: 0.75rem;
+      width: 18px;
+      height: 18px;
+      accent-color: #18167A;
+    }
+  
+    label {
+      margin-bottom: 0;
+      color: #444;
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Section Titles */
+  .section-title {
+    color: #18167A;
+    font-size: 1.2rem;
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+  }

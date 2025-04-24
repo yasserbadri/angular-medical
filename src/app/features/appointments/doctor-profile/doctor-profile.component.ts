@@ -12,7 +12,7 @@ export class DoctorProfileComponent {
     specialty: 'Généraliste',
     university: 'Médecin de faculté de médecine de tunis',
     degree: 'Diplomé docteur en médecine de la faculté de médecine de Tunis',
-    photo: 'assets/doctor.png',
+    photo: 'assets/images/utilisateurConnecte.png',
     contactMethods: [
       { type: 'Email', icon: '📧', color: 'border-blue-500', style: 'text-blue-700' },
       { type: 'Appel', icon: '📞', color: 'border-green-500', style: 'text-green-700' },

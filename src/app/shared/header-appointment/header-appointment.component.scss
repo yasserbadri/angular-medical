@@ -1,393 +1,325 @@
-/* Base Styles */
 .main-header.style-two {
-    position:relative;
-    left: 0;
-    top: 0;
-    z-index: 999;
-    background-color: #444444;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 15px 0;
-    transition: all 500ms ease;
-  
-    .auto-container {
-      max-width: 100%; /* Modification ici - était à 1200px */
-      margin: 0;
-      padding: 0 15px;
+  --primary-color: #18167A;
+  --secondary-color: #83D1C3;
+  --accent-color: #1ECB91;
+  --text-light: #FFFFFF;
+  --text-dark: #2D3748;
+  --transition-speed: 0.4s;
+  --header-height: 80px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(31, 131, 161, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(131, 209, 195, 0.2);
+  height: var(--header-height);
+  transition: all var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.99);
+    box-shadow: 0 6px 40px rgba(24, 22, 122, 0.1);
+  }
+
+  .auto-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+  }
+
+  .outer-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* Logo Section - Enhanced */
+  .logo-box {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem 0 0;
+    position: relative;
+    z-index: 2;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40%;
+      background: linear-gradient(to bottom, transparent, var(--secondary-color), transparent);
     }
-  
-    .outer-box {
+
+    .logo {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 100%; /* Ajout pour s'assurer de la pleine largeur */
-    }
-  
-    /* Logo */
-    .logo-box {
-      padding-left: 15px; /* Ajout de padding pour l'espacement */
-      h1 {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #1976d2;
-        margin: 0;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateX(5px);
       }
-    }
-  
-    /* Navigation */
-    .navigation {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-      margin-right: 15px; /* Ajout de marge à droite */
-  
-      li {
-        margin-left: 20px;
-        position: relative;
-        padding: 5px 0;
-  
-        span, a {
-          color: #333;
-          text-decoration: none;
-          font-size: 0.95rem;
-          transition: all 0.3s ease;
-        }
-  
-        a:hover {
-          color: #1976d2;
-        }
-  
-        &.current span {
-          font-weight: 500;
-        }
-  
-        &.login-btn a {
-          border: 1px solid #1976d2;
-          color: #1976d2;
-          padding: 5px 15px;
-          border-radius: 4px;
-          transition: all 0.3s ease;
-  
-          &:hover {
-            background: #1976d2;
-            color: white;
-          }
-        }
+
+      .logo-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-right: 0.75rem;
       }
-    }
-  
-    /* Mobile Toggle */
-    .mobile-nav-toggle {
-      display: none;
-      cursor: pointer;
-  
-      .icon-bar {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: #333;
-        margin: 5px 0;
-        transition: all 0.3s ease;
-      }
-    }
-  
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-box {
-        position: relative;
-      }
-  
-      .main-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        width: 100%; /* Modification ici - était à 250px */
-        padding: 15px;
-        display: none;
-  
-        &.show {
-          display: block;
-        }
-      }
-  
-      .navigation {
-        flex-direction: column;
-        align-items: flex-start;
-  
-        li {
-          margin: 5px 0;
-          width: 100%;
-        }
-      }
-      
-  
-      .mobile-nav-toggle {
-        display: block;
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.5px;
       }
     }
   }
 
+  /* Navigation - Premium Style */
+  .nav-box {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 
+  .main-menu {
+    height: 100%;
+    display: flex;
+    align-items: center;
 
+    .navigation {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
 
+      > li {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
 
-  
-<!DOCTYPE html>
-<html class="no-js" lang="fr-fr" translate="no" style="--primary-1: rgba(24, 22, 122, 0.1); --primary-2: rgba(24, 22, 122, 0.2); --primary-3: rgba(24, 22, 122, 0.3); --primary-4: rgba(24, 22 2, 0.4); --primary-5: rgba(24, 22, 122, 0.5); --primary-6: rgba(24, 22, 122, 0.6); --primary-7: rgba(24, 22, 122, 0.7); --primary-8: rgba(24, 22, 122, 0.8); --primary-9: rgba(24, 22, 122, 0.9): --secondary-1: rgba(167, 32, 113, 0.1); --secondary-2: rgba(167, 32, 113, 0.2); --secondary-3: rgba(167, 32, 113, 0.3); --secondary-4: rgba(167, 32, 113, 0.4); --secondary-5: rgba(167, 32, 113, 0.5); --secondary-6: rgba(167, 32, 113, 0.6); --secondary-7: rgba(167, 32, 113, 0.7); --secondary-8: rgba(167, 32, 113, 0.8); --secondary-9: rgba(167, 32, 113, 0.9);"> scroll <head> </head>
-<body class="light-theme" style>
-<div class="horizontalMenucontainer" style="min-width: 110px;"> (flex)
-<!-- Inclure la bibliothèque Bootstrap pour les modales -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> <style> </style>
-<div class="button-float"> </div> (flex
-<!-- Modal Pays -->
-<div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="countryModalLabel" aria-hidden="true"> <div class="modal-dialog">
-<div class="modal-content">flex
-<div class="modal-header"> </div> flex
-<div class="modal-body">
-</div>
-</div>
-</div>
-</div>
-<!-- Modal Langue -->
-<div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true"> <div class="modal-dialog">
-<div class="modal-content">flex
-<div class="modal-header"> </div> flex
-<div class="modal-body">
-</div>
-</div>
-</div>
-</div>
-<!-- Modal Aide -->
-<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true"> <div class="modal-dialog">
-<div class="modal-content">flex
-<div class="modal-header"> </div> flex
-<div class="modal-body">
-</div>
-</div>
-</div>
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 3px;
+          background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+          transition: width var(--transition-speed) ease;
+        }
 
-</div>
-<script></script>
-<!--Loader-->
-‣ <div id="global-loader" style="display: none;"></div>
-<!--/Loader-->
-<!--rihem 09-01-2025-->
-<!-- main header -->
-<header class="main-header style-two">
-<div class="auto-container">
-<div class="header-upper">
-<div class="outer-box clearfix">
-<div class="logo-box pull-left">
-<figure class="logo">
-<a href="https://wic-doctor.com/"></a> </figure>
-</div>
-<div class="nav-box pull-right clearfix">
-<div class="menu-area pull-left">
-<!--Mobile Navigation Toggler-->
-<div class="mobile-nav-toggler">
-<i class="icon-bar"></i>
-<i class="icon-bar"></i>
-<i class="icon-bar"></i>
-</div>
-<nav class="main-menu navbar-expand-md navbar-light">
-<div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent"></div> </nav>
-</div>
-::after
-</div>
-::after
-</div>
-<div class="outer-box clearfix">
-<div class="logo-box pull-left"></div>
-<div class="nav-box pull-right clearfix">
-<div class="menu-area pull-left">
-<!--Mobile Navigation Toggler-->
-▶ <div class="mobile-nav-toggler"></div>
+        &:hover::before {
+          width: 80%;
+        }
 
-<nav class="main-menu navbar-expand-md navbar-light">@</nav>
-</div>
-::after
-</div>
-::after
-</div>
-</div>
-</div>
-<!--sticky Header-->
-<div class="sticky-header"> </div>
-</header>
-<!-- main-header end -->
-<!-- Mobile Menu -->
-<div class="mobile-menu"></div>
-<!-- End Mobile Menu -->
-<!--Page Title-->
-<section class="page-title centred" style="padding: 20px 0px 113px 0px !important;">
-<div class="pattern-layer">
-<div class="pattern-1" style="background-image: url(https://wic-doctor.com/assets/images/icons/pattern-21.png);"></div> <div class="pattern-2" style="background-image: url(https://wic-doctor.com/assets/images/icons/pattern-22.png);"></div>
-<div class="pattern-3 float-bob-x" style="background-image: url(https://wic-doctor.com/assets/images/icons/pattern-23.png);"></div> </div>
-</section>
-<!--End Page Title-->
-<style> </style> <!--Section-->
-<section class="sptb">
-<div class="container">
-<div class="row" id="DoctorsDetails"> (flex
-*
-<a style="font-family: 'Arial', sans-serif; font-size: 1rem; color: #fff; background: linear-gradient(135deg, #83D1C3 0%, #18167A 100%); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-transform: uppercase;" type="button" class="btn btn-primary d-lg-none w-100 mt-3" href="#rdvsection"> Prendre un rendez-vous </a> <div class="row rowrdv" style=" overflow-y: auto;"> flex scroll
-<div class="col-lg-8">
-<div class="card shadow-1g border-0 rounded-4 overflow-hidden"> (flex
-<div class="card-body item-user p-4"></div>
-<div class="card-footer bg-light d-flex flex-column flex-md-row align-items-center gap-md-3"></div> flex </div>
-<style> </style>
+        a, span {
+          color: var(--text-dark);
+          text-decoration: none;
+          font-size: 0.95rem;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          position: relative;
+          transition: all var(--transition-speed) ease;
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
 
-‣ <div class="social-buttons"></div>(flex
-</div> flex </div> flex </div> flex
-<div class="card shadow-1g mt-3 border-0 rounded-4"> <div class="card shadow-lg mt-3 border-0 rounded-4"> <div class="card shadow-1g mt-3 border-0 rounded-4"> <div class="card shadow-1g mt-3 border-rounded-4"> <div class="card shadow-1g mt-3 border-0 rounded-4"></div> flex <div class="card shadow-1g mt-3 border-0 rounded-4"> <!-- Lightbox -->
-</div> flex
-</div> flex
-‣ <div style="display: none;" id="lightbox" class="lightbox"></div> <style>.</style>
-<!--<div class="card shadow-1g mt-3 border-rounded-4">
-<div class="card-body p-4">
-<div class="videos mt-4">
-<h5 class="text-dark fw-bold mb-3">Vidéos</h5>
-<div class="row g-2">
-<div class="col-md-4">
-<video controls class="img-fluid rounded shadow-sm"
-style="transition: transform 0.3s ease-in-out;">
-<source src="./../../../../../../../../assets/videos/fake-video1.mp4" type="video/mp4"> Votre navigateur ne supporte pas la vidéo. </video>
-</div>
-<div class="col-md-4">
-<video controls class="img-fluid rounded shadow-sm"
-style="transition: transform 0.3s ease-in-out;">
-<source src="./../../../../../../../../assets/videos/fake-video2.mp4" type="video/mp4"> Votre navigateur ne supporte pas la vidéo. </video>
-</div>
-<div class="col-md-4">
-<video controls class="img-fluid rounded shadow-sm"
-style="transition: transform 0.3s ease-in-out;">
-<source src=" . / . . / . . / . . / . . /../../../../assets/videos/fake-video3.mp4" type="video/mp4"> Votre navigateur ne supporte pas la vidéo.
-</video>
-</div>
+        &:hover a, &:hover span {
+          color: var(--primary-color);
+          transform: translateY(-2px);
+        }
 
-</div>
-</div>
-</div>
-</div>-->
-</div>
-<style> </style>
-<!-- Colonne droite contenant la prise de rendez-vous -->
-<div class="col-lg-4" id="rdvsection">
-<div class="card fixed-card card-rdv" style="position: absolute; top: -1.9px;"> flex scroll <div class="card-body">
-<div class="container mt-5"></div>
-<!-- Modal Structure -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true"> <div class="modal-dialog" role="document">
-<div class="modal-content">flex
-<div class="modal-header"> </div> flex
-<div class="modal-body">
-</div>
-<div class="modal-footer"></div> (flex </div>
-</div> </div>
-</div>
-<div class="card-footer"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!--/ Section-->
-<!-- Newsletter-->
-‣ <section class="sptb section-bg"></section>
-<!--/Newsletter-->
-<!--Footer Section-->
-<section></section>
-<!--Footer Section-->
-<!-- Message Modal -->
-<div class="modal" id="contact" tabindex="-1" role="dialog" aria-hidden="true">
+        &.current {
+          &::before {
+            width: 80%;
+          }
 
-<div class="modal-dialog" role="document"> <div class="modal-content">flex
-<div class="modal-header"> </div> flex <div class="modal-body"> </div>
-<div class="modal-footer"> </div> flex
-</div>
-</div>
-</div>
-<!--/Message Modal -->
-<!--Comment Modal -->
-<div class="modal" id="Comment" tabindex="-1" role="dialog" aria-hidden="true">
-<div class="modal-dialog" role="document">
-<div class="modal-content"> flex
-<div class="modal-header"> </div> flex
-<div class="modal-body">
-</div>
-<div class="modal-footer"></div> flex
-</div>
-</div> </div>
-<!--/Comment Modal -->
-<!-- Pop-up et overlay -->
-<div class="overlay" id="overlay"></div>
-<div class="popup" id="popup"></div>
-<!-- Report Modal -->
-<div class="modal" id="report" tabindex="-1" role="dialog" aria-hidden="true"></div> <!--/Report Modal -->
-<!--Cryptojs-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script> <script type="text/javascript" id charset></script>
-<script src="./../../../../assets/js/recherche.js"></script>
-<script></script>
-<!-- Back to top -->
-<a href="#top" id="back-to-top" style="display: none;"></a> <style> </style>
-<!-- End Popup Login-->
-<div class="social-icons" style="z-index: 9999;"> </div> flex <!-- JQuery js-->
-<!--rihem 09-01-2025-->
+          a, span {
+            color: var(--primary-color);
+            font-weight: 600;
+          }
+        }
 
-<script src="./../../../../assets/js/jquery.js"></script>
-<script src="./../../../../assets/js/new-js/popper.min.js"></script> <script src="./../../../../assets/js/new-js/bootstrap.min.js"></script> <script src="./../../../../assets/js/new-js/owl.js"></script> <script src="./../../../../assets/js/new-js/wow.js"></script>
-<script src="./../../../../assets/js/new-js/validation.js"></script> <script src="./../../../../assets/js/new-js/jquery.fancybox.js"></script>
-<script></script>
-<script></script>
-<script src="./../../../../assets/js/new-js/appear.js"></script> <script src="./../../../../assets/js/new-js/isotope.js"></script>
-*
-<iframe id="_hjSafeContext_16676877" title="_hjSafeContext" tabindex="-1" aria-hidden="true" src="about:blank" style="display: none !important; width: 1px !important; height: 1px !importan t; opacity: 0 !important; pointer-events: none !important;"></iframe> <script src="./../../../../assets/js/new-js/parallax.min.js"></script> <script src="./../../../../assets/js/new-js/tilt.jquery.js"></script> <script src="./../../../../assets/js/scrollbar.js"></script> <script src="./../../../../assets/js/script.js"></script>
-<!--rihem 09-01-2025-->
-<script src="./../../../../assets/js/jquery.min.js"></script> <!-- Bootstrap js -->
-<script src="./../../../../assets/plugins/bootstrap/js/popper.min.js"></script> <script src="./../../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!--JQueryVehiclerkline Js-->
-<script src="./../../../../assets/js/jquery.sparkline.min.js"></script> <!-- Circle Progress Js-->
-<script src="./../../../../assets/js/circle-progress.min.js"></script>
-<!-- Star Rating Js-->
-<script src="./../../../../assets/plugins/rating/jquery.rating-stars.js"></script> <!--Owl Carousel js -->
-<script src="./../../../../assets/plugins/owl-carousel/owl.carousel.js"></script> <!--Horizontal Menu-->
-<script src="./../../../../assets/plugins/horizontal/horizontal.js"></script> <!--JQuery TouchSwipe js-->
-<script src="./../../../../assets/js/jquery.touchSwipe.min.js"></script> <!-- Datepicker js -->
-<script src="./../../../../assets/plugins/date-picker/spectrum.js"></script> <script src="./../../../../assets/plugins/date-picker/jquery-ui.js"></script> <script src="./../../../../assets/plugins/date-picker/datepicker.is"></script>
+        /* Login Button - Enhanced */
+        &.login-btn {
+          margin-left: 1.5rem;
+          padding: 0;
 
-<!--Select2 js -->
-<script src="./../../../../assets/plugins/select2/select2.full.min.js"></script> <script src="./../../../../assets/js/select2.js"></script>
-<!-- Cookie js -->
-<script src="./../../../../assets/plugins/cookie/jquery.ihavecookies.js"></script>
-<script src="./../../../../assets/plugins/cookie/cookie.js"></script>
-<!-- Count Down-->
-<script src="./../../../../assets/plugins/count-down/jquery.lwtCountdown-1.0.js"></script> <!-- sticky Js-->
-<script src="./../../../../assets/js/sticky.js"></script>
-<!-- Vertical scroll bar Js-->
-<script src="./../../../../assets/plugins/vertical-scroll/jquery.bootstrap.newsbox.js"></script> <script src="./../../../../assets/plugins/vertical-scroll/vertical-scroll.js"></script> <!-- Swipe Js-->
-<script src="./../../../../assets/js/swipe.js"></script>
-<!--Owl-Carousel Js-->
-<script src="./../../../../assets/js/owl-carousel.js"></script> <!--Showmore Js-->
-<script src="./../../../../assets/js/jquery.showmore.js"></script> <script src="./../../../../assets/js/showmore.js"></script>
-<!--doctor-details-->
-<!--<script src="./../../../../assets/js/doctor-details.js"></script>--> <!-- Rendez-vous-->
-<!--<script src="./../../../../assets/js/rendez-vous.js"></script>--> <!-- Typewritter Js-->
-<script src="./../../../../assets/js/typewritter.js"></script>
-<!-- Theme-color js -->
-<script src="./../../../../assets/js/themeColors.js"></script> <!-- Custom Js-->
-<script src="./../../../../assets/js/custom.js"></script>
-<!-- switcher-custom js -->
-<script src="./../../../../assets/js/switcher-custom.js"></script> <!-- Google Tag Manager (noscript) -->
-‣ <noscript></noscript>
-<!-- End Google Tag Manager (noscript) -->
-</div>
-<div id="97C3BBEF-A132-217B-2D3C-FD9F928C3220"></div>
-<style type="text/css">.typewrite > .wrap { border-right: 0.08em solid transparent}</style>
-<div id="veepn-guard-alert"></div>
-<style> </style>
-<div id="veepn-breach-alert"></div> <style> </style> == $0
-</body>
-</html>
+          a {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            height: auto;
+            background: transparent;
+
+            &:hover {
+              background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+              color: var(--text-light);
+              transform: translateY(-3px);
+              box-shadow: 0 4px 15px rgba(24, 22, 122, 0.2);
+              border-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Mobile Toggle - Modern Design */
+  .mobile-nav-toggle {
+    display: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-speed) ease;
+
+    &:hover {
+      background: rgba(131, 209, 195, 0.1);
+    }
+
+    .icon-bar {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--primary-color);
+      margin: 4px 0;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    &.active {
+      .icon-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .icon-bar:nth-child(2) {
+        opacity: 0;
+      }
+      .icon-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+    }
+  }
+
+  /* Responsive Design - Premium Approach */
+  @media (max-width: 992px) {
+    .auto-container {
+      padding: 0 1.5rem;
+    }
+
+    .main-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 320px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+      transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+
+      &.show {
+        right: 0;
+      }
+
+      .navigation {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+
+        > li {
+          width: 100%;
+          height: auto;
+          padding: 0.75rem 0;
+          margin: 0;
+
+          &::before {
+            display: none;
+          }
+
+          a, span {
+            padding: 0.75rem 1rem;
+            width: 100%;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: rgba(131, 209, 195, 0.1);
+              transform: translateX(5px);
+            }
+          }
+
+          &.login-btn {
+            margin: 1.5rem 0 0 0;
+            padding: 0.75rem 0;
+
+            a {
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+
+    .mobile-nav-toggle {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 576px) {
+    --header-height: 70px;
+
+    .auto-container {
+      padding: 0 1rem;
+    }
+
+    .logo-box {
+      .logo-text {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  /* Scroll Effect */
+  &.scrolled {
+    height: 70px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+
+    .logo-box {
+      .logo-text {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}

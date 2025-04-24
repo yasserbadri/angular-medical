@@ -14,4 +14,40 @@
       </button>
     </div>
   </div>
+  <div class="doctor-card">
+    <div class="floating-elements">
+      <div class="element"></div>
+      <div class="element"></div>
+    </div>
+    
+    <div class="card-content">
+      <div class="header">
+        <div class="photo-container">
+          <img [src]="doctor.photo" alt="Doctor Photo" class="photo">
+        </div>
+        <div class="info">
+          <h2>{{ doctor.name }}  <span class="verified">✓</span></h2>
+          <div class="specialty">{{ doctor.specialty }}</div>
+          <p class="degree">{{ doctor.degree }}</p>
+          <p class="university">{{ doctor.university }}</p>
+        </div>
+      </div>
+      
+      <div class="contacts">
+        
+        <button class="contact-button whatsapp">
+          <i class="icon bi bi-whatsapp"></i>
+          WhatsApp
+        </button>
+        <button class="contact-button call">
+          <i class="icon bi bi-telephone"></i>
+          Appel
+        </button>
+        <button class="contact-button message">
+          <i class="icon bi bi-envelope"></i>
+          Message
+        </button>
+      </div>
+    </div>
+  </div>
   

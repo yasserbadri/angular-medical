@@ -1,54 +1,189 @@
 .doctor-card {
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #eee;
-    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(24, 22, 122, 0.1);
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(131, 209, 195, 0.2);
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(24, 22, 122, 0.15);
+    }
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(to right, #83D1C3, #18167A);
+    }
+  
     .header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      margin-bottom: 20px;
+  
       .photo {
-        width: 80px;
-        height: 80px;
+        width: 88px;
+        height: 88px;
         border-radius: 50%;
-        margin-right: 15px;
+        margin-right: 20px;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
       }
+  
       .info {
+        flex: 1;
+  
         h2 {
-          margin: 0;
-          font-size: 20px;
-          font-weight: bold;
+          margin: 0 0 4px 0;
+          font-size: 22px;
+          font-weight: 700;
+          color: #18167A;
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
+  
         .verified {
-          color: green;
-          font-size: 18px;
+          color: #1ecb91;
+          font-size: 20px;
+          display: inline-flex;
+          align-items: center;
+  
+          &::after {
+            content: 'Vérifié';
+            font-size: 12px;
+            margin-left: 4px;
+          }
         }
+  
         .specialty {
-          background: #2a3fa4;
+          background: linear-gradient(135deg, #83D1C3 0%, #18167A 100%);
           color: white;
-          padding: 3px 8px;
-          border-radius: 10px;
-          font-size: 12px;
-          margin: 5px 0;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 13px;
+          margin: 8px 0;
           display: inline-block;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          box-shadow: 0 2px 8px rgba(24, 22, 122, 0.2);
         }
+  
         .university, .degree {
           color: #5a5a5a;
           font-size: 14px;
-          margin: 0;
+          margin: 4px 0;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+  
+          &::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #83D1C3;
+            border-radius: 50%;
+          }
         }
       }
     }
+  
     .contacts {
       display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
+      justify-content: space-between;
+      margin-top: 24px;
+      gap: 12px;
+  
       .contact-button {
         border: 2px solid;
-        border-radius: 10px;
-        padding: 8px 16px;
-        font-weight: bold;
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-weight: 600;
         background: white;
+        flex: 1;
+        text-align: center;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+  
+        &:hover {
+          transform: translateY(-2px);
+        }
+  
+        &.whatsapp {
+          border-color: #25D366;
+          color: #25D366;
+          
+          &:hover {
+            background: rgba(37, 211, 102, 0.1);
+          }
+        }
+  
+        &.call {
+          border-color: #18167A;
+          color: #18167A;
+          
+          &:hover {
+            background: rgba(24, 22, 122, 0.1);
+          }
+        }
+  
+        &.message {
+          border-color: #83D1C3;
+          color: #83D1C3;
+          
+          &:hover {
+            background: rgba(131, 209, 195, 0.1);
+          }
+        }
+  
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      padding: 20px;
+      border-radius: 16px;
+  
+      .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+  
+        .photo {
+          margin-right: 0;
+          margin-bottom: 16px;
+        }
+  
+        .info {
+          h2 {
+            justify-content: center;
+          }
+        }
+      }
+  
+      .contacts {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   }
-  

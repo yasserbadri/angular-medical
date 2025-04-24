@@ -16,7 +16,17 @@ export class HeaderAppointmentComponent {
     }
   }
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
+  // Dans votre composant Angular
+toggleMobileMenu() {
+  const menu = document.querySelector('.main-menu');
+  const toggle = document.querySelector('.mobile-nav-toggle');
+  
+  if (menu) {
+    menu.classList.toggle('show');
+  }else if (toggle) {
+  toggle.classList.toggle('active');
+  
+  // Empêcher le défilement du body quand le menu est ouvert
+  document.body.style.overflow = menu && (menu as HTMLElement).classList.contains('show') ? 'hidden' : '';
+}}
 }
