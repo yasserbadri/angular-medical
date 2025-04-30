@@ -8,7 +8,7 @@ import { AppointmentsModule } from './features/appointments/appointments.module'
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { UsersModule } from './features/users/users.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutModule } from './components/layout/layout.module';
 import { HomeComponent } from './features/home/home.component';
@@ -39,6 +39,8 @@ import { DoctorProfileFormComponent } from './features/users/doctor-profile-form
     
     FormsModule,
     SharedModule,
+    
+    
     
     
   ],

@@ -1,88 +1,160 @@
-<p>doctor-profile-form works!</p>
 <div class="doctor-profile-container">
-    <h2>Compléter votre profil médecin</h2>
+    <!-- Messages d'erreur/succès -->
+    @if (errorMessage) {
+      <div class="error-message">
+        <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+      </div>
+    }
+  
+    @if (showSuccessMessage) {
+      <div class="success-message">
+        <i class="fas fa-check-circle"></i> Profil mis à jour avec succès!
+      </div>
+    }
+  
+    <div class="profile-header">
+      <h2>Complete Your Doctor Profile</h2>
+      <p class="subtitle">Help patients find you by providing complete information</p>
+      <div class="progress-indicator">
+        <div class="progress-step active">1</div>
+        <div class="progress-step">2</div>
+        <div class="progress-step">3</div>
+      </div>
+    </div>
     
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-      <!-- Photo de profil -->
-      <div class="form-group">
-        <label>Photo de profil</label>
-        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="profile-form">
+      <!-- Profile Photo -->
+      <div class="form-section">
+        <h3 class="section-title">Profile Photo</h3>
+        <div class="avatar-upload">
+          <div class="avatar-preview" [style.backgroundImage]="'url(' + (profileImagePreview || './assets/default-avatar.png') + ')'">
+          </div>
+          <label for="avatarUpload" class="upload-button">
+            <i class="fas fa-camera"></i> Upload Photo
+            <input id="avatarUpload" type="file" (change)="onFileSelected($event)" accept="image/*">
+          </label>
+          <small>Recommended size: 300x300px (JPG or PNG)</small>
+        </div>
       </div>
   
-      <!-- Spécialité -->
-      <div class="form-group">
-        <label>Spécialité médicale</label>
-        <select formControlName="speciality">
-          <option value="">Sélectionnez votre spécialité</option>
-          <option *ngFor="let spec of specialities" [value]="spec">{{ spec }}</option>
-        </select>
-        <small *ngIf="profileForm.get('speciality')?.invalid && profileForm.get('speciality')?.touched">
-          Ce champ est requis
-        </small>
-      </div>
-  
-      <!-- Description -->
-      <div class="form-group">
-        <label>Description</label>
-        <textarea formControlName="description" rows="5"></textarea>
-        <small *ngIf="profileForm.get('description')?.invalid && profileForm.get('description')?.touched">
-          Minimum 50 caractères
-        </small>
-      </div>
-  
-      <!-- Diplôme -->
-      <div class="form-group">
-        <label>Lieu d'obtention du diplôme</label>
-        <input type="text" formControlName="diploma">
-        <small *ngIf="profileForm.get('diploma')?.invalid && profileForm.get('diploma')?.touched">
-          Ce champ est requis
-        </small>
-      </div>
-  
-      <!-- Type -->
-      <div class="form-group checkbox">
-        <label>
-          <input type="checkbox" formControlName="isGeneralist">
-          Médecin généraliste
-        </label>
-      </div>
-  
-      <!-- Coordonnées -->
-      <div class="contact-section">
-        <h3>Coordonnées</h3>
+      <!-- Professional Information -->
+      <div class="form-section">
+        <h3 class="section-title">Professional Information</h3>
         
-        <div class="form-group">
-          <label>Téléphone</label>
-          <input type="tel" formControlName="phone">
-          <small *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
-            Numéro valide requis (10 chiffres)
-          </small>
+        <div class="form-group" [class.invalid]="profileForm.get('speciality')?.invalid && profileForm.get('speciality')?.touched">
+          <label>Medical Speciality <span class="required">*</span></label>
+          <div class="select-wrapper">
+            <select formControlName="speciality">
+              <option value="" disabled selected>Select your speciality</option>
+              @for (spec of specialities; track spec) {
+                <option [value]="spec">{{ spec }}</option>
+              }
+            </select>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          @if (profileForm.get('speciality')?.invalid && profileForm.get('speciality')?.touched) {
+            <div class="error-message">
+              This field is required
+            </div>
+          }
+        </div>
+  
+        <div class="form-group" [class.invalid]="profileForm.get('description')?.invalid && profileForm.get('description')?.touched">
+          <label>Professional Description <span class="required">*</span></label>
+          <textarea formControlName="description" rows="5" placeholder="Tell patients about your experience, approach, etc."></textarea>
+          <div class="char-counter">{{ profileForm.get('description')?.value?.length || 0 }}/500</div>
+          @if (profileForm.get('description')?.invalid && profileForm.get('description')?.touched) {
+            <div class="error-message">
+              Minimum 50 characters required
+            </div>
+          }
+        </div>
+  
+        <div class="form-group" [class.invalid]="profileForm.get('diploma')?.invalid && profileForm.get('diploma')?.touched">
+          <label>Diploma/Certification <span class="required">*</span></label>
+          <input type="text" formControlName="diploma" placeholder="University/Hospital name">
+          @if (profileForm.get('diploma')?.invalid && profileForm.get('diploma')?.touched) {
+            <div class="error-message">
+              This field is required
+            </div>
+          }
+        </div>
+  
+        <div class="form-group checkbox-group">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="isGeneralist">
+            <span class="checkmark"></span>
+            General Practitioner
+          </label>
+        </div>
+      </div>
+  
+      <!-- Contact Information -->
+      <div class="form-section">
+        <h3 class="section-title">Contact Information</h3>
+        
+        <div class="form-group" [class.invalid]="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+          <label>Phone Number <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <i class="fas fa-phone"></i>
+            <input type="tel" formControlName="phone" placeholder="e.g. 0612345678">
+          </div>
+          @if (profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched) {
+            <div class="error-message">
+              Valid 10-digit number required
+            </div>
+          }
         </div>
   
         <div class="form-group">
           <label>WhatsApp</label>
-          <input type="tel" formControlName="whatsapp">
+          <div class="input-with-icon">
+            <i class="fab fa-whatsapp"></i>
+            <input type="tel" formControlName="whatsapp" placeholder="Optional WhatsApp number">
+          </div>
         </div>
   
         <div class="form-group">
           <label>Facebook</label>
-          <input type="url" formControlName="facebook" placeholder="https://">
+          <div class="input-with-icon">
+            <i class="fab fa-facebook-f"></i>
+            <input type="url" formControlName="facebook" placeholder="https://facebook.com/yourprofile">
+          </div>
         </div>
   
         <div class="form-group">
           <label>Instagram</label>
-          <input type="url" formControlName="instagram" placeholder="https://">
+          <div class="input-with-icon">
+            <i class="fab fa-instagram"></i>
+            <input type="url" formControlName="instagram" placeholder="https://instagram.com/yourprofile">
+          </div>
         </div>
   
         <div class="form-group">
-          <label>Site web</label>
-          <input type="url" formControlName="website" placeholder="https://">
+          <label>Website</label>
+          <div class="input-with-icon">
+            <i class="fas fa-globe"></i>
+            <input type="url" formControlName="website" placeholder="https://yourclinic.com">
+          </div>
         </div>
       </div>
   
-      <button type="submit" [disabled]="profileForm.invalid || isLoading">
-        <span *ngIf="!isLoading">Enregistrer le profil</span>
-        <span *ngIf="isLoading">Enregistrement en cours...</span>
-      </button>
+      <div class="form-actions">
+        <button type="submit" class="submit-button" [disabled]="profileForm.invalid || isLoading">
+          @if (!isLoading) {
+            <span>
+              <i class="fas fa-save"></i> Save Profile
+            </span>
+          }
+          @if (isLoading) {
+            <span>
+              <i class="fas fa-spinner fa-spin"></i> Saving...
+            </span>
+          }
+        </button>
+        <div class="form-note">
+          <i class="fas fa-info-circle"></i> Fields marked with <span class="required">*</span> are required
+        </div>
+      </div>
     </form>
   </div>
