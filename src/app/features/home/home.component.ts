@@ -69,5 +69,6 @@ export class HomeComponent {
     { name: 'Sophie M.', comment: 'Un accueil chaleureux et des soins de qualité ' },
     { name: 'Jean D.', comment: 'Très satisfait de la téléconsultation, rapide et efficace.' }
   ];
+
   
 }

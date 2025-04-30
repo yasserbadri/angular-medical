@@ -16,7 +16,21 @@
             <li><a href="#doctors">Médecins</a></li>
             <li><a href="#about">À propos</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="login-btn"><a href="#login">Connexion</a></li>
+            <li><div class="actions">
+              <button class="btn secondary">Vous êtes un praticien?</button>
+              
+              <div *ngIf="!isLoggedIn; else userProfile" class="auth-buttons">
+                <button class="btn primary" routerLink="/login">Connexion</button>
+              </div>
+              
+              <ng-template #userProfile>
+                <div class="user-profile">
+                  <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
+                  <button class="btn logout" (click)="logout()">Déconnexion</button>
+                </div>
+              </ng-template>
+            </div>
+          </li>
           </ul>
         </nav>
       </div>

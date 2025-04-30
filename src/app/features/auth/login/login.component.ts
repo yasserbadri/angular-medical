@@ -1,42 +1,56 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/auth.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  standalone: false,
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'] // Attention à l'orthographe de "styleUrls"
+  standalone: false,
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  loginForm: FormGroup;
+  errorMessage: string = '';
+  loading = false;
 
-  constructor(private authService: AuthService) {}
-
-  // Méthode pour valider l'email
-  isValidEmail(): boolean {
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return regex.test(this.email);
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
-  // Méthode pour gérer la soumission du formulaire
-  onLogin() {
-    if (this.isValidEmail() && this.password.length >= 6) {
-      this.authService.login(this.email, this.password).subscribe(
-        response => {
-          // Gérer la réponse du backend (par exemple, stocker le token JWT)
-          console.log('Login successful', response);
-          // Sauvegarde le token JWT dans le localStorage ou sessionStorage
-          localStorage.setItem('token', response.token);
-        },
-        error => {
-          // Gérer les erreurs (par exemple, afficher un message d'erreur)
-          console.error('Login failed', error);
-        }
-      );
-    } else {
-      // Si le formulaire est invalide, ne rien faire
-      console.error('Formulaire invalide');
+  onSubmit() {
+    this.errorMessage = '';
+    
+    if (this.loginForm.invalid) {
+      return;
     }
+  
+    this.loading = true;
+    
+    const { email, password } = this.loginForm.value;
+  
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        this.loading = false;
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Erreur complète:', err);
+        
+        // Message d'erreur plus précis
+        if (err.status === 401) {
+          this.errorMessage = 'Email ou mot de passe incorrect';
+        } else {
+          this.errorMessage = 'Erreur de connexion. Veuillez réessayer.';
+        }
+      }
+    });
   }
 }

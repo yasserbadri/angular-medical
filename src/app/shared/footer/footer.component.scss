@@ -1,0 +1,101 @@
+.footer {
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 40px 20px 20px;
+  
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+  
+      .footer-section {
+        flex: 1;
+        min-width: 250px;
+  
+        h4 {
+          margin-bottom: 15px;
+          font-size: 1.2rem;
+          position: relative;
+  
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #a8dadc;
+          }
+        }
+  
+        ul {
+          list-style: none;
+          padding: 0;
+  
+          li a {
+            text-decoration: none;
+            color: #f1faee;
+            transition: color 0.3s ease;
+  
+            &:hover {
+              color: #e63946;
+            }
+          }
+        }
+  
+        p {
+          margin: 5px 0;
+        }
+  
+        &.logo {
+          text-align: center;
+  
+          .logo-img {
+            width: 120px;
+            margin-bottom: 10px;
+          }
+  
+          .footer-icons {
+            margin-top: 15px;
+  
+            i {
+              font-size: 1.5rem;
+              margin: 0 10px;
+              color: #f1faee;
+              animation: float 3s ease-in-out infinite;
+  
+              &.delay-1 {
+                animation-delay: 1s;
+              }
+  
+              &.delay-2 {
+                animation-delay: 2s;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  

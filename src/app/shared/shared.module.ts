@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderAppointmentComponent } from './header-appointment/header-appointment.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
-    HeaderAppointmentComponent
+    HeaderAppointmentComponent,
+    FooterComponent
   ],
   exports: [
-    HeaderAppointmentComponent
+    HeaderAppointmentComponent,FooterComponent
   ],
   imports: [
     CommonModule

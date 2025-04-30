@@ -1,3 +1,37 @@
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .user-name {
+    font-weight: 500;
+    color: #333;
+  }
+
+  .logout {
+    background: #f8f9fa;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #dc3545;
+      color: white;
+    }
+  }
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
 .main-header.style-two {
   --primary-color: #18167A;
   --secondary-color: #83D1C3;
@@ -322,4 +356,35 @@
       }
     }
   }
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    .user-name {
+      font-weight: 500;
+      color: #333;
+    }
+  
+    .logout {
+      background: #f8f9fa;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+  
+      &:hover {
+        background: #dc3545;
+        color: white;
+      }
+    }
+  }
+  
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
 }
+

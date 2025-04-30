@@ -1,50 +1,45 @@
 <div class="login-container">
-    <h2>Se connecter</h2>
-    
-    <!-- Formulaire de connexion -->
-    <form (ngSubmit)="onLogin()" class="login-form">
-      
-      <!-- Champ email -->
-      <div class="form-group">
-        <label for="email">Adresse e-mail</label>
-        <input 
-          type="email" 
-          id="email" 
-          [(ngModel)]="email" 
-          name="email" 
-          class="form-control" 
-          placeholder="Entrez votre email" 
-          required />
-        <div *ngIf="email && !isValidEmail()" class="error-message">
-          Veuillez entrer un email valide.
-        </div>
+  <h2>Connexion</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+      <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched" class="invalid-feedback">
+        L'email est requis
       </div>
-      
-      <!-- Champ mot de passe -->
-      <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input 
-          type="password" 
-          id="password" 
-          [(ngModel)]="password" 
-          name="password" 
-          class="form-control" 
-          placeholder="Entrez votre mot de passe" 
-          required />
-        <div *ngIf="password && password.length < 6" class="error-message">
-          Le mot de passe doit contenir au moins 6 caractères.
-        </div>
+      <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" class="invalid-feedback">
+        Email invalide
       </div>
-  
-      <!-- Bouton de connexion -->
-      <button type="submit" class="btn btn-primary" [disabled]="!email || !password || !isValidEmail()">
-        Se connecter
-      </button>
-    </form>
-    
-    <!-- Lien pour la page d'inscription -->
-    <div class="register-link">
-      <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
     </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input 
+        type="password" 
+        id="password" 
+        formControlName="password"
+        [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched" class="invalid-feedback">
+        Le mot de passe est requis
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid || loading">
+      <span *ngIf="!loading">Se connecter</span>
+      <span *ngIf="loading">Connexion en cours...</span>
+    </button>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+
+  <div class="register-link">
+    <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
   </div>
-  
+</div>

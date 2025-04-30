@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; // <-- Ajoute cette ligne
+
 
 
 
@@ -12,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent
   ],
   imports: [
-    CommonModule, FormsModule
+    CommonModule, FormsModule,    ReactiveFormsModule // <-- Ajoute cette ligne
+
   ],
   exports: [LoginComponent, RegisterComponent] // facultatif si utilisé dans d'autres modules
 
