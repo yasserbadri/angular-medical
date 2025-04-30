@@ -10,9 +10,19 @@ import { AppointmentsComponent } from './features/appointments/appointments.comp
 import { DoctorProfileFormComponent } from './features/users/doctor-profile-form/doctor-profile-form.component';
 import { DoctorProfileGuard } from './features/users/doctor-profile-form/doctor-profile.guard';
 import { AuthGuard } from './features/auth/auth.guard';
+import { ProfileComponent } from './features/profile/profile.component';
+import { MedicalRecordListComponent } from './features/MedicalRecord/medical-record-list/medical-record-list.component';
+import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
+import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { 
+    path: 'profile', 
+    component: ProfileComponent
+  },
+  { path: 'medical-records', component: MedicalRecordListComponent },
+  { path: 'medical-records/create', component: MedicalRecordCreateComponent },
 
   // Routes hors layout
   { path: 'login', component: LoginComponent },
@@ -55,11 +65,12 @@ const routes: Routes = [
   },
 
   // Redirection si route inconnue
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule {}

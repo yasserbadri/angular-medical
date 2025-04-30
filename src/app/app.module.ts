@@ -15,13 +15,23 @@ import { HomeComponent } from './features/home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { DoctorProfileGuard } from './features/users/doctor-profile-form/doctor-profile.guard';
 import { AuthGuard } from './features/auth/auth.guard';
-import { DoctorProfileFormComponent } from './features/users/doctor-profile-form/doctor-profile-form.component';
+import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
+import { MedicalRecordListComponent } from './features/MedicalRecord/medical-record-list/medical-record-list.component';
+import { CommonModule } from '@angular/common';
+
+//import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    MedicalRecordCreateComponent,
+    MedicalRecordListComponent,
+
+    
+  
+    
    
     
     
@@ -36,9 +46,11 @@ import { DoctorProfileFormComponent } from './features/users/doctor-profile-form
     HttpClientModule,
     AppointmentsModule,
     DashboardModule,
-    
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
+    //MedicalRecordModule,
     
     
     

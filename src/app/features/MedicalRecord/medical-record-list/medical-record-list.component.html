@@ -1,0 +1,34 @@
+<app-header-appointment></app-header-appointment>
+<div class="container">
+    <div class="header">
+      <h2>Dossiers Médicaux</h2>
+      <button class="add-btn" routerLink="/medical-records/create">
+        <i>+</i> Nouveau Dossier
+      </button>
+    </div>
+  
+    <div class="records-grid">
+      <div *ngIf="records.length === 0" class="empty-state">
+        <div class="icon">📂</div>
+        <h3>Aucun dossier médical trouvé</h3>
+        <p>Commencez par créer un nouveau dossier médical pour votre patient</p>
+        <button class="btn" routerLink="/medical-records/create">Créer un dossier</button>
+      </div>
+  
+      <div *ngFor="let record of records" class="record-card">
+        <div class="card-header">
+          <h5><span class="icon">📋</span> Dossier #{{record.id}}</h5>
+          <span class="date">{{ record.createdAt | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="card-body">
+          <p>{{ record.recordDetails }}</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn-more">
+            Voir plus <span>→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
