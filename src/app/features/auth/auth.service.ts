@@ -60,4 +60,25 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
+
+  
+  
+  
+  updateUserProfile(userData: any): void {
+    const currentUser = this.getCurrentUser();
+    const updatedUser = { ...currentUser, ...userData };
+    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+  }
+  
+  isDoctorProfileComplete(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'Doctor' && user?.isProfileComplete;
+  }
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token'); // Ou votre méthode de vérification
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }

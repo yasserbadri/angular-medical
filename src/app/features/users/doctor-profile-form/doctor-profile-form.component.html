@@ -1,0 +1,88 @@
+<p>doctor-profile-form works!</p>
+<div class="doctor-profile-container">
+    <h2>Compléter votre profil médecin</h2>
+    
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <!-- Photo de profil -->
+      <div class="form-group">
+        <label>Photo de profil</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+  
+      <!-- Spécialité -->
+      <div class="form-group">
+        <label>Spécialité médicale</label>
+        <select formControlName="speciality">
+          <option value="">Sélectionnez votre spécialité</option>
+          <option *ngFor="let spec of specialities" [value]="spec">{{ spec }}</option>
+        </select>
+        <small *ngIf="profileForm.get('speciality')?.invalid && profileForm.get('speciality')?.touched">
+          Ce champ est requis
+        </small>
+      </div>
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" rows="5"></textarea>
+        <small *ngIf="profileForm.get('description')?.invalid && profileForm.get('description')?.touched">
+          Minimum 50 caractères
+        </small>
+      </div>
+  
+      <!-- Diplôme -->
+      <div class="form-group">
+        <label>Lieu d'obtention du diplôme</label>
+        <input type="text" formControlName="diploma">
+        <small *ngIf="profileForm.get('diploma')?.invalid && profileForm.get('diploma')?.touched">
+          Ce champ est requis
+        </small>
+      </div>
+  
+      <!-- Type -->
+      <div class="form-group checkbox">
+        <label>
+          <input type="checkbox" formControlName="isGeneralist">
+          Médecin généraliste
+        </label>
+      </div>
+  
+      <!-- Coordonnées -->
+      <div class="contact-section">
+        <h3>Coordonnées</h3>
+        
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" formControlName="phone">
+          <small *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+            Numéro valide requis (10 chiffres)
+          </small>
+        </div>
+  
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="tel" formControlName="whatsapp">
+        </div>
+  
+        <div class="form-group">
+          <label>Facebook</label>
+          <input type="url" formControlName="facebook" placeholder="https://">
+        </div>
+  
+        <div class="form-group">
+          <label>Instagram</label>
+          <input type="url" formControlName="instagram" placeholder="https://">
+        </div>
+  
+        <div class="form-group">
+          <label>Site web</label>
+          <input type="url" formControlName="website" placeholder="https://">
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="profileForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Enregistrer le profil</span>
+        <span *ngIf="isLoading">Enregistrement en cours...</span>
+      </button>
+    </form>
+  </div>

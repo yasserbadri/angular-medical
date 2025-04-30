@@ -7,6 +7,9 @@ import { UsersComponent } from './features/users/users.component';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 import { HomeComponent } from './features/home/home.component';
 import { AppointmentsComponent } from './features/appointments/appointments.component';
+import { DoctorProfileFormComponent } from './features/users/doctor-profile-form/doctor-profile-form.component';
+import { DoctorProfileGuard } from './features/users/doctor-profile-form/doctor-profile.guard';
+import { AuthGuard } from './features/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +17,11 @@ const routes: Routes = [
   // Routes hors layout
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {
+    path: 'complete-profile',
+    component: DoctorProfileFormComponent,
+    canActivate: [AuthGuard, DoctorProfileGuard]
+  },
   {path: 'appointments', component:AppointmentsComponent}
   // Routes avec layout
   ,{
@@ -21,7 +29,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
 
-      { path: 'dashboard', component: DashboardComponent },
+      //{ path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
       {
         path: 'appointments',
@@ -32,6 +40,18 @@ const routes: Routes = [
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' } // redirection vers dashboard
     ]
+  },
+
+  // Pages protégées
+  { 
+    path: 'dashboard', 
+    component: DashboardComponent,
+    canActivate: [AuthGuard] 
+  },
+  {
+    path: 'complete-profile',
+    component: DoctorProfileFormComponent,
+    canActivate: [AuthGuard, DoctorProfileGuard] // Protection double
   },
 
   // Redirection si route inconnue

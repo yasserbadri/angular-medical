@@ -13,6 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { LayoutModule } from './components/layout/layout.module';
 import { HomeComponent } from './features/home/home.component';
 import { SharedModule } from './shared/shared.module';
+import { DoctorProfileGuard } from './features/users/doctor-profile-form/doctor-profile.guard';
+import { AuthGuard } from './features/auth/auth.guard';
+import { DoctorProfileFormComponent } from './features/users/doctor-profile-form/doctor-profile-form.component';
 
 
 @NgModule({
@@ -33,12 +36,14 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     AppointmentsModule,
     DashboardModule,
-    UsersModule,
+    
     FormsModule,
-    SharedModule
+    SharedModule,
+    
     
   ],
-  providers: [],
+  providers: [AuthGuard,
+    DoctorProfileGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
