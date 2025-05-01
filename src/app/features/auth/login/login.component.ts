@@ -6,12 +6,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'], // N'oubliez pas d'ajouter cette ligne
   standalone: false,
 })
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
   loading = false;
+  passwordVisible = false; // Pour la fonctionnalité show/hide password
 
   constructor(
     private fb: FormBuilder,
@@ -24,10 +26,17 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  // Fonction pour basculer la visibilité du mot de passe
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  onSubmit(): void {
     this.errorMessage = '';
     
     if (this.loginForm.invalid) {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      this.loginForm.markAllAsTouched();
       return;
     }
   
@@ -38,19 +47,32 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: (res) => {
         this.loading = false;
-        this.router.navigate(['/']);
+        // Redirection vers la page précédente ou la page d'accueil
+        const redirectUrl = this.authService.redirectUrl || '/';
+        this.router.navigate([redirectUrl]);
       },
       error: (err) => {
         this.loading = false;
-        console.error('Erreur complète:', err);
+        console.error('Erreur de connexion:', err);
         
-        // Message d'erreur plus précis
-        if (err.status === 401) {
+        // Gestion des erreurs plus détaillée
+        if (err.status === 0) {
+          this.errorMessage = 'Impossible de se connecter au serveur. Vérifiez votre connexion internet.';
+        } else if (err.status === 401) {
           this.errorMessage = 'Email ou mot de passe incorrect';
+        } else if (err.status === 403) {
+          this.errorMessage = 'Compte non activé. Veuillez vérifier vos emails.';
         } else {
-          this.errorMessage = 'Erreur de connexion. Veuillez réessayer.';
+          this.errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
         }
       }
     });
+  }
+
+  // Méthode pour la connexion sociale (optionnelle)
+  socialLogin(provider: string): void {
+    console.log(`Tentative de connexion avec ${provider}`);
+    // Implémentez la logique de connexion sociale ici
+    // this.authService.socialLogin(provider).subscribe(...);
   }
 }

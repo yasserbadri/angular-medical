@@ -1,45 +1,83 @@
-<div class="login-container">
-  <h2>Connexion</h2>
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input 
-        type="email" 
-        id="email" 
-        formControlName="email"
-        [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-      <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched" class="invalid-feedback">
-        L'email est requis
-      </div>
-      <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" class="invalid-feedback">
-        Email invalide
-      </div>
+<div class="medical-login-container">
+  <div class="login-card">
+    <div class="login-header">
+      
+      <h2>Bienvenue sur MediCarePro</h2>
+      <p>Connectez-vous pour accéder à votre espace</p>
     </div>
 
-    <div class="form-group">
-      <label for="password">Mot de passe</label>
-      <input 
-        type="password" 
-        id="password" 
-        formControlName="password"
-        [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-      <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched" class="invalid-feedback">
-        Le mot de passe est requis
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Adresse Email</label>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="votre@email.com"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        </div>
+        <div class="validation-errors">
+          <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Ce champ est requis
+          </div>
+          <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Format d'email invalide
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            placeholder="••••••••"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility()"></i>
+        </div>
+        <div class="validation-errors">
+          <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Le mot de passe est requis
+          </div>
+        </div>
+      </div>
+
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid || loading">
+        <span *ngIf="!loading">
+          <i class="fas fa-sign-in-alt"></i> Se connecter
+        </span>
+        <span *ngIf="loading">
+          <i class="fas fa-spinner fa-spin"></i> Connexion en cours...
+        </span>
+      </button>
+
+      <div *ngIf="errorMessage" class="error-alert">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="login-footer">
+      <p>Nouveau sur MediCarePro ? <a routerLink="/register">Créer un compte</a></p>
+      <div class="social-login">
+        <p>Ou connectez-vous avec :</p>
+        <div class="social-icons">
+          <button class="social-btn google">
+            <i class="fab fa-google"></i>
+          </button>
+          <button class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+        </div>
       </div>
     </div>
-
-    <button type="submit" [disabled]="loginForm.invalid || loading">
-      <span *ngIf="!loading">Se connecter</span>
-      <span *ngIf="loading">Connexion en cours...</span>
-    </button>
-
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-      {{ errorMessage }}
-    </div>
-  </form>
-
-  <div class="register-link">
-    <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
   </div>
 </div>

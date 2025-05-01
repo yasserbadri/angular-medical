@@ -27,7 +27,20 @@ import { Location } from '@angular/common';
   ]
 
 })
-export class HeaderAppointmentComponent  {
+export class HeaderAppointmentComponent implements OnInit  {
+  isLoggedInStatus = false;
+
+  ngOnInit() {
+    this.checkAuthStatus();
+    // S'abonner aux changements d'état d'authentification
+    this.authService.currentUser$.subscribe(() => {
+      this.checkAuthStatus();
+    });
+  }
+
+  private checkAuthStatus() {
+    this.isLoggedInStatus = this.authService.isAuthenticated();
+  }
   isActive(path: string): boolean {
     return this.location.path() === path || 
            (path !== '/' && this.location.path().startsWith(path));
@@ -62,14 +75,27 @@ constructor(public authService: AuthService, private router: Router,   private l
   }
 
   get isLoggedIn() {
-    return this.authService.isAuthenticated();
+    return this.isLoggedInStatus; // Utilisez maintenant la propriété locale
+  }
+  
+  // Ajoutez ce getter pour les utilisateurs non connectés
+  get isLoggedOff() {
+    return !this.isLoggedInStatus;
   }
 
   logout() {
     this.authService.logout();
+    this.isLoggedInStatus = false;
+  this.isMobileMenuOpen = false;
+  this.router.navigate(['/login']);
+
   }
   navigateToDoctorRegistration() {
-    this.router.navigate(['/register'], { queryParams: { role: 'Doctor' } });}}
+    this.router.navigate(['/register'], { queryParams: { role: 'Doctor' } });}
+  navigateTo(route: string) {
+      this.router.navigate([route]);
+      this.isMobileMenuOpen = false; }
+  }
 /*
 isLoggedIn = false;
   currentUser: any = null;

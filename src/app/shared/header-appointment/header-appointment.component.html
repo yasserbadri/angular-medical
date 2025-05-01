@@ -63,7 +63,7 @@
         <span>Espace praticien</span>
       </button>
 
-      <div *ngIf="!isLoggedIn" class="auth-buttons">
+      <div *ngIf="!isLoggedIn||isLoggedOff" class="auth-buttons">
         <button class="btn btn-login" routerLink="/login">
           <i class="fas fa-sign-in-alt"></i>
           <span>Connexion</span>

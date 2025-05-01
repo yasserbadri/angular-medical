@@ -68,6 +68,7 @@ export class AuthService {
   isLoggedOff(): boolean {
     return !this.isLoggedIn();
   }
+  redirectUrl: string | null = null;
 
 
 
