@@ -1,46 +1,131 @@
-<header class="main-header style-two">
+<header class="medical-header">
+  <div class="header-container">
+    <div class="header-brand">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1a73e8">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 15.5h-1.5V14h-1v3H8v-3H7v4.5H5.5v-5c0-.55.45-1 1-1H11c.55 0 1 .45 1 1v5zm3.5 0H14v-6h3.5c.55 0 1 .45 1 1V16c0 .55-.45 1-1 1h-2v1.5zm-1-8c0 .55-.45 1-1 1H10V10h3V9h-2V8h2V7h-3V5.5h3.5c.55 0 1 .45 1 1v3zm1 3.5H17v1.5h-1.5z"/>
+          </svg>
+        </div>
+        <span class="logo-text">MediCarePro</span>
+      </a>
+    </div>
+
+    <nav class="header-nav">
+      <ul class="nav-list">
+        <!-- Accueil -->
+    <li class="nav-item" [class.active]="isActive('/')">
+      <a routerLink="/" class="nav-link">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+      </a>
+    </li>
+        <!-- Services -->
+    <li class="nav-item" [class.active]="isActive('/services')">
+      <a routerLink="/services" class="nav-link">
+        <i class="fas fa-procedures"></i>
+        <span>Services</span>
+      </a>
+    </li>
+       <!-- Médecins -->
+    <li class="nav-item" [class.active]="isActive('/doctors')">
+      <a routerLink="/doctors" class="nav-link">
+        <i class="fas fa-user-md"></i>
+        <span>Médecins</span>
+      </a>
+    </li>
+    
+    <!-- Rendez-vous -->
+    <li class="nav-item" [class.active]="isActive('/appointments')">
+      <a routerLink="/appointments" class="nav-link">
+        <i class="fas fa-calendar-check"></i>
+        <span>Rendez-vous</span>
+      </a>
+    </li>
+    
+    <!-- Contact -->
+    <li class="nav-item" [class.active]="isActive('/contact')">
+      <a routerLink="/contact" class="nav-link">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li>
+    
+  </ul>
   
-  <div class="auto-container">
-    <div class="outer-box">
-      <div class="logo-box">
-        <a href="/" class="logo">
-          <span class="logo-icon">👨⚕️</span>
-          <span class="logo-text">MediCare</span>
-        </a>
+</nav>
+
+    <div class="header-actions">
+      <button *ngIf="!isLoggedIn || (isLoggedIn && !authService.isDoctor())" 
+              class="btn btn-doctor"
+              (click)="navigateToDoctorRegistration()">
+        <i class="fas fa-stethoscope"></i>
+        <span>Espace praticien</span>
+      </button>
+
+      <div *ngIf="!isLoggedIn" class="auth-buttons">
+        <button class="btn btn-login" routerLink="/login">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Connexion</span>
+        </button>
+        <button class="btn btn-primary" routerLink="/register">
+          <i class="fas fa-user-plus"></i>
+          <span>S'inscrire</span>
+        </button>
       </div>
-      
-      <div class="nav-box">
-        <nav class="main-menu">
-          <ul class="navigation">
-            <li class="current"><span>Accueil</span></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#doctors">Médecins</a></li>
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><div class="actions">
-              <button class="btn secondary">Vous êtes un praticien?</button>
-              
-              <div *ngIf="!isLoggedIn; else userProfile" class="auth-buttons">
-                <button class="btn primary" routerLink="/login">Connexion</button>
+
+      <div *ngIf="isLoggedIn" class="user-profile">
+        <div class="user-avatar" [ngClass]="{'doctor-badge': authService.isDoctor(), 'patient-badge': authService.isPatient()}">
+          <img *ngIf="currentUser?.profilePhotoUrl; else defaultAvatar" 
+               [src]="currentUser.profilePhotoUrl" 
+               alt="Photo de profil">
+          <ng-template #defaultAvatar>
+            <i class="fas fa-user-circle"></i>
+          </ng-template>
+        </div>
+        
+        <div class="user-dropdown">
+          <button class="dropdown-toggle">
+            <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          
+          <div class="dropdown-menu">
+            <div class="user-info">
+              <div class="user-role-badge" [ngClass]="{'doctor-role': authService.isDoctor(), 'patient-role': authService.isPatient()}">
+                {{ authService.isDoctor() ? 'Médecin' : 'Patient' }}
               </div>
-              
-              <ng-template #userProfile>
-                <div class="user-profile">
-                  <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
-                  <button class="btn logout" (click)="logout()">Déconnexion</button>
-                </div>
-              </ng-template>
+              <div class="user-email">{{ currentUser?.email }}</div>
             </div>
-          </li>
-          </ul>
-        </nav>
+            
+            <div class="dropdown-divider"></div>
+            
+            <a routerLink="/profile" class="dropdown-item">
+              <i class="fas fa-user-cog"></i>
+              <span>Mon profil</span>
+            </a>
+            <a *ngIf="authService.isDoctor()" routerLink="/doctor/dashboard" class="dropdown-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Tableau de bord</span>
+            </a>
+            <a *ngIf="authService.isPatient()" routerLink="/patient/appointments" class="dropdown-item">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Mes rendez-vous</span>
+            </a>
+            
+            <div class="dropdown-divider"></div>
+            
+            <button (click)="logout()" class="dropdown-item logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Déconnexion</span>
+            </button>
+          </div>
+        </div>
       </div>
-      
-      <div class="mobile-nav-toggle">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </div>
+
+      <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </div>
 </header>

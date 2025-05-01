@@ -1,17 +1,84 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5278/api/auth'; // ⚠️ adapte au port réel de ton backend
+  private apiUrl = 'http://localhost:5278/api/auth'; 
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.loadUserFromStorage();
+  }
+
+  private loadUserFromStorage(): void {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+  }
 
   login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap((res: any) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.currentUserSubject.next(res.user);
+      })
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
+  }
+
+  getCurrentUser(): any {
+    return this.currentUserSubject.value;
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getCurrentUser();
+  }
+
+  isDoctor(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'Doctor';
+  }
+
+  isPatient(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'Patient';
+  }
+
+  // Ajoutez cette méthode pour vérifier si le profil est complet
+  isProfileComplete(): boolean {
+    const user = this.getCurrentUser();
+    if (this.isDoctor()) {
+      return user?.isProfileComplete;
+    }
+    return true; // Pour les patients, considérez que le profil est toujours complet
+  }
+  isLoggedOff(): boolean {
+    return !this.isLoggedIn();
+  }
+
+
+
+
+
+
+
+  
+ /* constructor(private http: HttpClient) {}*/
+
+  /*login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((res: any) => {
         localStorage.setItem('token', res.token);
@@ -19,10 +86,9 @@ export class AuthService {
       })
     );
   }
- 
+ */
 
   register(userData: any): Observable<any> {
-    // Format compatible avec ASP.NET Core
     const body = {
       firstName: userData.firstName,
       lastName: userData.lastName,
@@ -47,7 +113,7 @@ export class AuthService {
   }
  
 
-  isAuthenticated(): boolean {
+ /* isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
@@ -59,7 +125,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  }
+  }*/
 
   
 
@@ -86,9 +152,8 @@ export class AuthService {
 
  
 
-  // OU une version plus complète si vous avez besoin de vérifier le profil complet :
-  isDoctor(): boolean {
+  /*isDoctor(): boolean {
     const user = this.getCurrentUser();
     return user?.role === 'Doctor' && user?.isProfileComplete;
-  }
+  }*/
 }

@@ -1,6 +1,9 @@
 import { Component, HostListener ,OnInit} from '@angular/core';
 import { AuthService } from '../../features/auth/auth.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 
 @Component({
@@ -24,7 +27,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 
 })
-export class HeaderAppointmentComponent implements OnInit {
+export class HeaderAppointmentComponent  {
+  isActive(path: string): boolean {
+    return this.location.path() === path || 
+           (path !== '/' && this.location.path().startsWith(path));
+  }
   isMobileMenuOpen = false;
 
   @HostListener('window:resize', ['$event'])
@@ -47,7 +54,23 @@ toggleMobileMenu() {
   // Empêcher le défilement du body quand le menu est ouvert
   document.body.style.overflow = menu && (menu as HTMLElement).classList.contains('show') ? 'hidden' : '';
 }}
+constructor(public authService: AuthService, private router: Router,   private location: Location
+) {}
 
+  get currentUser() {
+    return this.authService.getCurrentUser();
+  }
+
+  get isLoggedIn() {
+    return this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+  navigateToDoctorRegistration() {
+    this.router.navigate(['/register'], { queryParams: { role: 'Doctor' } });}}
+/*
 isLoggedIn = false;
   currentUser: any = null;
 
@@ -69,5 +92,5 @@ isLoggedIn = false;
     this.isLoggedIn = false;
     this.currentUser = null;
   }
-  
-}
+  */
+

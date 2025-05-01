@@ -3,12 +3,13 @@ import { ProfileService, UserProfile } from './profile.service';
 import { AuthService } from '../auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule] // Ajoutez ceci
+  imports: [CommonModule, ReactiveFormsModule,SharedModule] // Ajoutez ceci
 
 })
 export class ProfileComponent implements OnInit {

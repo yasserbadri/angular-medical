@@ -14,9 +14,22 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { MedicalRecordListComponent } from './features/MedicalRecord/medical-record-list/medical-record-list.component';
 import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
 import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
+import { DoctorGuard } from './features/auth/doctor.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  //{ path: 'services', component: ServicesComponent },
+  //{ path: 'doctors', component: DoctorsComponent },
+  { path: 'appointments', component: AppointmentsComponent },
+  //{ path: 'contact', component: ContactComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  //{ path: 'doctor/dashboard', component: DoctorDashboardComponent, canActivate: [AuthGuard, DoctorGuard] },
+  //{ path: 'patient/appointments', component: PatientAppointmentsComponent, canActivate: [AuthGuard] },
+
+  /*{ path: '', component: HomeComponent },
   { 
     path: 'profile', 
     component: ProfileComponent
@@ -27,6 +40,17 @@ const routes: Routes = [
   // Routes hors layout
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { 
+    path: 'doctor/dashboard', 
+    component: HomeComponent,
+    canActivate: [AuthGuard, DoctorGuard] 
+  },
+  
+  { 
+    path: 'patient/dashboard', 
+    component: HomeComponent,
+    canActivate: [AuthGuard] 
+  },
   {
     path: 'complete-profile',
     component: DoctorProfileFormComponent,
@@ -65,7 +89,7 @@ const routes: Routes = [
   },
 
   // Redirection si route inconnue
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: 'login' },*/
   
 ];
 
