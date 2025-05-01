@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* styles.scss */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    margin-left: 280px; /* Largeur de la sidebar */
+    transition: margin-left 0.3s ease;
+  
+    &.sidebar-collapsed {
+      margin-left: 60px;
+    }
+  }

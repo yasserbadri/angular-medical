@@ -18,6 +18,9 @@ import { AuthGuard } from './features/auth/auth.guard';
 import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
 import { MedicalRecordListComponent } from './features/MedicalRecord/medical-record-list/medical-record-list.component';
 import { CommonModule } from '@angular/common';
+import { QuickNoteComponent } from './features/doctors/quick-note/quick-note.component';
+import { DoctorSidebarComponent } from './features/doctors/doctor-sidebar/doctor-sidebar.component';
+import { AuthService } from './features/auth/auth.service';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -28,6 +31,8 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     MedicalRecordCreateComponent,
     MedicalRecordListComponent,
+    
+    QuickNoteComponent,
 
     
   
@@ -51,13 +56,15 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     SharedModule,
     //MedicalRecordModule,
+    DoctorSidebarComponent
+    
     
     
     
     
   ],
   providers: [AuthGuard,
-    DoctorProfileGuard],
+    DoctorProfileGuard,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

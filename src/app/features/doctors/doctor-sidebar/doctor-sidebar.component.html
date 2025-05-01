@@ -1,0 +1,80 @@
+
+<div class="doctor-sidebar" [class.collapsed]="isCollapsed">
+    <div class="sidebar-header">
+      <h3>Espace Docteur</h3>
+      <button (click)="toggleCollapse()" class="toggle-btn">
+        <i [class]="isCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+      </button>
+    </div>
+  
+    <nav>
+      <ul class="sidebar-menu">
+        <!-- Section Dossiers Médicaux -->
+        <li class="menu-section">
+          <span><i class="fas fa-folder-medical"></i> Dossiers</span>
+          <ul>
+            <li>
+              <a routerLink="/medical-records" routerLinkActive="active">
+                <i class="fas fa-list-ul"></i> Liste des dossiers
+              </a>
+            </li>
+            <li>
+              <a routerLink="/medical-records/create" routerLinkActive="active">
+                <i class="fas fa-file-medical"></i> Nouveau dossier
+              </a>
+            </li>
+            <li>
+              <a (click)="openQuickNote()">
+                <i class="fas fa-sticky-note"></i> Note rapide
+              </a>
+            </li>
+          </ul>
+        </li>
+  
+        <!-- Section Patients -->
+        <li class="menu-section">
+          <span><i class="fas fa-user-injured"></i> Patients</span>
+          <ul>
+            <li>
+              <a routerLink="/patients" routerLinkActive="active">
+                <i class="fas fa-users"></i> Liste des patients
+              </a>
+            </li>
+            <li>
+              <a routerLink="/patients/search" routerLinkActive="active">
+                <i class="fas fa-search"></i> Recherche avancée
+              </a>
+            </li>
+          </ul>
+        </li>
+  
+        <!-- Section Outils -->
+        <li class="menu-section">
+          <span><i class="fas fa-tools"></i> Outils</span>
+          <ul>
+            <li>
+              <a (click)="openPrescriptionTool()">
+                <i class="fas fa-prescription-bottle-alt"></i> Prescription
+              </a>
+            </li>
+            <li>
+              <a (click)="openMedicalDictionary()">
+                <i class="fas fa-book-medical"></i> Dictionnaire
+              </a>
+            </li>
+            <li>
+              <a (click)="openCalendar()">
+                <i class="fas fa-calendar-alt"></i> Calendrier
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="sidebar-footer">
+      <button (click)="openEmergencyProtocol()" class="emergency-btn">
+        <i class="fas fa-ambulance"></i> Protocole d'urgence
+      </button>
+    </div>
+  </div>

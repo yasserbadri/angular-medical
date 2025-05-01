@@ -1,0 +1,143 @@
+@use "sass:color";
+$primary: #1a73e8;
+$danger: #e53e3e;
+
+.doctor-sidebar {
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: fixed;
+  z-index: 1000;
+
+  &.collapsed {
+    width: 60px;
+    
+    .sidebar-header h3,
+    .menu-section span,
+    .menu-section a span,
+    .sidebar-footer button span {
+      display: none;
+    }
+    
+    .menu-section ul {
+      display: none;
+    }
+  }
+
+  .sidebar-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #edf2f7;
+
+    h3 {
+      margin: 0;
+      color: #2d3748;
+      font-size: 1.25rem;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #718096;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+
+    .menu-section {
+      margin-bottom: 1rem;
+
+      > span {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: #4a5568;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        i {
+          margin-right: 0.5rem;
+          width: 20px;
+          text-align: center;
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li a {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem 1.5rem;
+          color: #4a5568;
+          text-decoration: none;
+          transition: all 0.2s;
+          font-size: 0.95rem;
+
+          i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+            color: #718096;
+          }
+
+          &:hover {
+            background: #ebf8ff;
+            color: $primary;
+          }
+
+          &.active {
+            background: color.adjust($primary, $lightness: 40%);
+            color: $primary;
+            font-weight: 500;
+            border-left: 3px solid $primary;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid #edf2f7;
+
+    .emergency-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: color.adjust($danger, $lightness: 40%);
+      color: $danger;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+
+      &:hover {
+        background: color.adjust($danger, $lightness: 30%);
+      }
+
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

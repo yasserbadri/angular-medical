@@ -62,6 +62,8 @@ export class AuthService {
   }
 
   
+
+  
   
   
   updateUserProfile(userData: any): void {
@@ -80,5 +82,13 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+ 
+
+  // OU une version plus complète si vous avez besoin de vérifier le profil complet :
+  isDoctor(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'Doctor' && user?.isProfileComplete;
   }
 }
