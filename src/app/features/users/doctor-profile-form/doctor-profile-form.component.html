@@ -41,6 +41,13 @@
       <div class="form-section">
         <h3 class="section-title">Professional Information</h3>
         
+        <!-- Add this to your doctorprofile.html -->
+<div class="form-group">
+  <label>Diploma/Certification File <span class="required">*</span></label>
+  <input type="file" id="diplomaUpload" (change)="onDiplomaSelected($event)" accept=".pdf,.jpg,.png">
+  <small>Upload your diploma (PDF, JPG or PNG)</small>
+</div>
+
         <div class="form-group" [class.invalid]="profileForm.get('speciality')?.invalid && profileForm.get('speciality')?.touched">
           <label>Medical Speciality <span class="required">*</span></label>
           <div class="select-wrapper">

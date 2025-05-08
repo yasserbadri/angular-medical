@@ -34,8 +34,8 @@ export class DoctorProfileFormComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(500)]],
       diploma: ['', Validators.required],
       isGeneralist: [false],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{15}$/)]],
-      whatsapp: ['', Validators.pattern(/^[0-9]{10}$/)],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],  // Updated pattern
+      whatsapp: ['', Validators.pattern(/^[0-9]{10,15}$/)],  // Changed from whatsappNumber to whatsapp
       facebook: [''],
       instagram: [''],
       website: ['']
@@ -50,6 +50,15 @@ export class DoctorProfileFormComponent implements OnInit {
       this.profileForm.patchValue(currentUser.profileData);
     }
   }
+  // Add these to your component
+selectedDiplomaFile: File | null = null;
+
+onDiplomaSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files[0]) {
+    this.selectedDiplomaFile = input.files[0];
+  }
+}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -67,18 +76,11 @@ export class DoctorProfileFormComponent implements OnInit {
   // doctor-profile-form.component.ts
 // doctor-profile-form.component.ts
 async onSubmit(): Promise<void> {
-  if (this.profileForm.invalid) {
+  if (this.profileForm.invalid || !this.selectedDiplomaFile) {
     this.markAllAsTouched();
-    this.errorMessage = 'Please fill all required fields correctly';
-    console.log("form invalid")
-    return;
-  }
-
-  // Verify token before proceeding
-  if (!this.authService.isTokenValid()) {
-    this.errorMessage = 'Your session has expired. Please login again.';
-    console.log('Session expired. Redirecting to login...');
-    this.router.navigate(['/complete-profile']);
+    this.errorMessage = !this.selectedDiplomaFile 
+      ? 'Please upload your diploma file' 
+      : 'Please fill all required fields correctly';
     return;
   }
 
@@ -88,44 +90,34 @@ async onSubmit(): Promise<void> {
   try {
     const formData = new FormData();
     
-    // Append all form values
-    Object.keys(this.profileForm.value).forEach(key => {
-      const value = this.profileForm.get(key)?.value;
-      if (value !== null && value !== undefined) {
-        formData.append(key, value.toString());
-      }
-    });
+    // Append form values
+    formData.append('Speciality', this.profileForm.get('speciality')?.value);
+    formData.append('Description', this.profileForm.get('description')?.value);
+    formData.append('Diploma', this.profileForm.get('diploma')?.value);
+    formData.append('IsGeneralist', this.profileForm.get('isGeneralist')?.value);
+    formData.append('Phone', this.profileForm.get('phone')?.value);
+    formData.append('WhatsappNumber', this.profileForm.get('whatsapp')?.value || '');
+    formData.append('FacebookUrl', this.profileForm.get('facebook')?.value || '');
+    formData.append('InstagramUrl', this.profileForm.get('instagram')?.value || '');
+    formData.append('WebsiteUrl', this.profileForm.get('website')?.value || '');
 
-    // Append file if exists
+    // Append files
     if (this.selectedFile) {
-      formData.append('profilePhoto', this.selectedFile, this.selectedFile.name);
+      formData.append('profilePhoto', this.selectedFile);
+    }
+    if (this.selectedDiplomaFile) {
+      formData.append('diplomaFile', this.selectedDiplomaFile);
     }
 
-    // Debug FormData contents
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-
-    try {
-      const response = await lastValueFrom(this.doctorService.completeProfile(formData));
-      console.log(response, "what is happening");
-    } catch (error) {
-      console.log(error);
-    }
-    
-
+    const response = await lastValueFrom(this.doctorService.completeProfile(formData));
     this.showSuccessMessage = true;
+    
     setTimeout(() => this.router.navigate(['/doctor/dashboard']), 2000);
   } catch (error: any) {
-    console.error('Submission error:', error);
-    if (error.status === 401) {
-      this.errorMessage = 'Session expired. Please login again.';
-      console.log("profile incomplete")
-    } else {
-      this.errorMessage = error.error?.message || 'Failed to update profile';
-      if (error.error?.errors) {
-        this.errorMessage += ': ' + error.error.errors.join(', ');
-      }
+    console.error('Error:', error);
+    this.errorMessage = error.error?.message || 'Failed to update profile';
+    if (error.error?.errors) {
+      this.errorMessage = error.error.errors.map((e: any) => e.errorMessage).join(', ');
     }
   } finally {
     this.isLoading = false;

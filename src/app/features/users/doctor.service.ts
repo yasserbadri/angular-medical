@@ -21,17 +21,13 @@ completeProfile(formData: FormData): Observable<any> {
   const token = this.authService.getToken();
   
   if (!token) {
-    console.error('No token found - user might not be authenticated');
     return throwError(() => new Error('No token found'));
   }
 
-  // For FormData uploads, we must NOT set Content-Type - let browser set it
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
-    // No Content-Type header for FormData!
+    // Don't set Content-Type - let browser set it for FormData
   });
-
-  console.log('Request headers:', headers); // Debug
 
   return this.http.post(
     `${this.apiUrl}/auth/complete-doctor-profile`,
@@ -42,28 +38,19 @@ completeProfile(formData: FormData): Observable<any> {
     }
   ).pipe(
     catchError(error => {
-      console.error('Profile update error:', error);
-      if (error.status === 401) {
-        console.error('Authentication failed - token might be invalid or expired');
+      // Improved error handling
+      if (error.status === 400) {
+        // Bad Request - validation errors
+        return throwError(() => error.error);
+      } else if (error.status === 401) {
+        // Unauthorized
+        return throwError(() => ({ message: 'Session expired. Please login again.' }));
+      } else {
+        // Other errors
+        return throwError(() => ({ 
+          message: error.error?.message || 'An unexpected error occurred'
+        }));
       }
-      return throwError(() => error);
     })
   );
-}
-  getProfile(doctorId: string) {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get(
-      `${this.apiUrl}/auth/doctor-profile/${doctorId}`,
-      { headers }
-    ).pipe(
-      catchError(error => {
-        console.error('Profile fetch error:', error);
-        return throwError(() => error);
-      })
-    );
-  }
-}
+}}

@@ -163,11 +163,14 @@ isTokenValid(): boolean {
   
   
   
-  updateUserProfile(userData: any): void {
-    const currentUser = this.getCurrentUser();
-    const updatedUser = { ...currentUser, ...userData };
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-  }
+    updateUserProfile(userData: any): void {
+      const currentUser = this.getCurrentUser();
+      if (currentUser) {
+        const updatedUser = { ...currentUser, ...userData };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        this.currentUserSubject.next(updatedUser);
+      }
+    }
   
   isDoctorProfileComplete(): boolean {
     const user = this.getCurrentUser();
