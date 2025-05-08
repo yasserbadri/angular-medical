@@ -15,10 +15,56 @@ import { MedicalRecordListComponent } from './features/MedicalRecord/medical-rec
 import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
 import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 import { DoctorGuard } from './features/auth/doctor.guard';
+import { HomeDoctorComponent } from './features/home/home-doctor/home-doctor.component';
+import { HomePatientComponent } from './features/home/home-patient/home-patient.component';
+import { DoctorListComponent } from './features/doctor-page/doctor-list/doctor-list.component';
+import { MedicalServiceComponent } from './features/services/medical-service/medical-service.component';
+import { MedicalServiceCreateComponent } from './features/services/medical-service-create/medical-service-create.component';
+import { MedicalServiceManagerComponent } from './features/services/medical-service-manager/medical-service-manager.component';
+import { MedicalServiceListComponent } from './features/services/medical-service-list/medical-service-list.component';
 
 const routes: Routes = [
 
   { path: '', component: HomeComponent, pathMatch: 'full' },
+  { 
+    path: 'services', 
+    component: MedicalServiceComponent,
+    data: { title: 'Nos Services Médicaux' }
+  },
+  { 
+    path: 'services/create', 
+    component: MedicalServiceCreateComponent,
+    data: { title: 'Créer un nouveau service' }
+  },
+  /*{ 
+    path: 'services/manage/:id', 
+    component: MedicalServiceManagerComponent,
+    data: { title: 'Gérer le service' }
+  },
+  { 
+    path: 'services/manage', 
+    component: MedicalServiceManagerComponent,
+    data: { title: 'Créer un service' }
+  },*/
+  {
+    path: 'servicess',
+    component: MedicalServiceListComponent,
+    data: { title: 'Liste des Services' }
+  },
+  
+  // Route pour créer un nouveau service
+  {
+    path: 'services/new',
+    component: MedicalServiceManagerComponent,
+    data: { title: 'Nouveau Service' }
+  },
+  
+  // Route pour modifier un service existant
+  {
+    path: 'services/edit/:id',
+    component: MedicalServiceManagerComponent,
+    data: { title: 'Modifier Service' }
+  },
   //{ path: 'services', component: ServicesComponent },
   //{ path: 'doctors', component: DoctorsComponent },
   { path: 'appointments', component: AppointmentsComponent },
@@ -26,9 +72,16 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  //{ path: 'doctor/dashboard', component: DoctorDashboardComponent, canActivate: [AuthGuard, DoctorGuard] },
-  //{ path: 'patient/appointments', component: PatientAppointmentsComponent, canActivate: [AuthGuard] },
-
+  { path: 'doctor/dashboard', component: HomeDoctorComponent, canActivate: [AuthGuard, DoctorGuard] },
+  { path: 'patient/dashboard', component: HomePatientComponent, canActivate: [AuthGuard] },
+  { path: 'medecins', component: DoctorListComponent },
+  {
+    path: 'complete-profile',
+    component: DoctorProfileFormComponent
+    
+  },
+  { path: 'medical-records', component: MedicalRecordListComponent },
+  { path: 'medical-records/create', component: MedicalRecordCreateComponent },
   /*{ path: '', component: HomeComponent },
   { 
     path: 'profile', 

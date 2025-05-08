@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { QuickNoteComponent } from './quick-note/quick-note.component';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
 @NgModule({
-    declarations: [QuickNoteComponent, DoctorSidebarComponent],
+    declarations: [ QuickNoteComponent, DoctorSidebarComponent],
     exports: [QuickNoteComponent]
 })
 export class DoctorsModule { }

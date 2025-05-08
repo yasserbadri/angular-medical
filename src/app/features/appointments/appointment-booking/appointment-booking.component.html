@@ -1,43 +1,89 @@
 <div class="appointment-container">
-    <h2 class="header">PRISE DE RENDEZ-VOUS</h2>
-  
-    <label for="typeSelect">Choisissez le type de rendez-vous souhaité :</label>
-    <select id="typeSelect" [(ngModel)]="appointmentType">
-      <option value="cabinet">Au cabinet</option>
-      <option value="visio">En ligne</option>
-    </select>
-  
-    <div class="calendar-wrapper">
-      <div class="calendar-header">
-        <button (click)="previousWeek()">&lt;</button>
-        <span>Semaine du {{ startOfWeek | date: 'dd MMMM yyyy' }}</span>
-        <button (click)="nextWeek()">&gt;</button>
-      </div>
-  
-      <div class="calendar">
-        <div class="day-column" *ngFor="let day of weekDates">
-          <div class="day-name">{{ day | date: 'EEEE' }}</div>
-          <div class="day-date">{{ day | date: 'dd MMM' }}</div>
-  
-          <div *ngFor="let hour of visibleSlots">
-            <button
-              class="slot"
-              [disabled]="!isSlotAvailable(day, hour)"
-              [ngClass]="{'active': isSelected(day, hour)}"
-              (click)="selectSlot(day, hour)">
-              {{ hour }}
-            </button>
-          </div>
-        </div>
+  <h2 class="header">PRISE DE RENDEZ-VOUS</h2>
+
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <!-- Sélection du médecin -->
+    <div class="form-group">
+      <label for="doctor">Choisissez un médecin :</label>
+      <select 
+        id="doctor" 
+        formControlName="doctorId" 
+        (change)="onDoctorSelect()"
+        [disabled]="loading">
+        <option value="">-- Sélectionnez un médecin --</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">
+          Dr. {{doctor.lastName}} {{doctor.firstName}} - {{doctor.specialty}}
+        </option>
+      </select>
+    </div>
+
+    <!-- Affichage des informations du médecin sélectionné -->
+    <div *ngIf="selectedDoctor" class="doctor-info">
+      <h3>Dr. {{selectedDoctor.lastName}} {{selectedDoctor.firstName}}</h3>
+      <p>Spécialité: {{selectedDoctor.specialty}}</p>
+      <p>{{selectedDoctor.description}}</p>
+    </div>
+
+    <!-- Type de rendez-vous -->
+    <div class="form-group">
+      <label for="typeSelect">Type de rendez-vous :</label>
+      <select 
+        id="typeSelect" 
+        formControlName="appointmentType"
+        [disabled]="loading">
+        <option value="cabinet">Au cabinet</option>
+        <option value="visio">En ligne</option>
+      </select>
+    </div>
+
+    <!-- Date du rendez-vous -->
+    <div class="form-group">
+      <label for="appointmentDate">Date :</label>
+      <input 
+        type="date" 
+        id="appointmentDate" 
+        formControlName="date" 
+        [min]="today"
+        (change)="onDateSelect()"
+        [disabled]="loading || !appointmentForm.get('doctorId')?.value">
+    </div>
+
+    <!-- Créneaux disponibles -->
+    <div class="form-group" *ngIf="availableSlots.length > 0">
+      <label>Sélectionnez un créneau :</label>
+      <div class="time-slots">
+        <button 
+          *ngFor="let slot of availableSlots" 
+          type="button" 
+          (click)="appointmentForm.get('time')?.setValue(slot.time)"
+          [class.selected]="appointmentForm.get('time')?.value === slot.time"
+          [disabled]="loading">
+          {{slot.time}}
+        </button>
       </div>
     </div>
-  
-    <button class="view-more" (click)="toggleSlotsVisibility()">
-        {{ showAllSlots ? 'Voir moins' : 'Voir plus' }}
-      </button>
-  
-    <div class="footer">
-      <button class="confirm-button" [disabled]="!selectedSlot">✅ Confirmer</button>
+
+    <!-- Message si aucun créneau disponible -->
+    <div *ngIf="appointmentForm.get('date')?.value && availableSlots.length === 0 && !loading" class="no-slots">
+      Aucun créneau disponible pour cette date.
     </div>
-  </div>
-  
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description">Description (optionnel) :</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        rows="3"
+        [disabled]="loading"></textarea>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button 
+      type="submit" 
+      [disabled]="appointmentForm.invalid || loading" 
+      class="confirm-button">
+      {{ loading ? 'En cours...' : 'Confirmer le rendez-vous' }}
+    </button>
+  </form>
+</div>

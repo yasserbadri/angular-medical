@@ -1,34 +1,54 @@
-<app-header-appointment></app-header-appointment>
-<div class="container">
-    <div class="header">
-      <h2>Dossiers Médicaux</h2>
-      <button class="add-btn" routerLink="/medical-records/create">
-        <i>+</i> Nouveau Dossier
-      </button>
-    </div>
+<div class="app-container">
+  <!-- Header fixé en haut -->
+  <app-header-appointment class="app-header"></app-header-appointment>
   
-    <div class="records-grid">
-      <div *ngIf="records.length === 0" class="empty-state">
-        <div class="icon">📂</div>
-        <h3>Aucun dossier médical trouvé</h3>
-        <p>Commencez par créer un nouveau dossier médical pour votre patient</p>
-        <button class="btn" routerLink="/medical-records/create">Créer un dossier</button>
+  <!-- Contenu principal positionné sous le header -->
+  <div class="main-layout">
+    <!-- Sidebar à gauche -->
+    <app-doctor-sidebar class="app-sidebar"></app-doctor-sidebar>
+    
+    <!-- Contenu principal + footer à droite -->
+    <div class="content-area">
+      <div class="main-content">
+
+        <div class="container">
+          <div class="header">
+            <h2>Dossiers Médicaux</h2>
+            <button class="add-btn" routerLink="/medical-records/create">
+              <i>+</i> Nouveau Dossier
+            </button>
+          </div>
+        
+          <div class="records-grid">
+            <div *ngIf="records.length === 0" class="empty-state">
+              <div class="icon">📂</div>
+              <h3>Aucun dossier médical trouvé</h3>
+              <p>Commencez par créer un nouveau dossier médical pour votre patient</p>
+              <button class="btn" routerLink="/medical-records/create">Créer un dossier</button>
+            </div>
+        
+            <div *ngFor="let record of records" class="record-card">
+              <div class="card-header">
+                <h5><span class="icon">📋</span> Dossier #{{record.id}}</h5>
+                <span class="date">{{ record.createdAt | date:'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="card-body">
+                <p>{{ record.recordDetails }}</p>
+              </div>
+              <div class="card-footer">
+                <button class="btn-more">
+                  Voir plus <span>→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vos autres composants/sections -->
       </div>
-  
-      <div *ngFor="let record of records" class="record-card">
-        <div class="card-header">
-          <h5><span class="icon">📋</span> Dossier #{{record.id}}</h5>
-          <span class="date">{{ record.createdAt | date:'dd/MM/yyyy' }}</span>
-        </div>
-        <div class="card-body">
-          <p>{{ record.recordDetails }}</p>
-        </div>
-        <div class="card-footer">
-          <button class="btn-more">
-            Voir plus <span>→</span>
-          </button>
-        </div>
-      </div>
+      <app-footer class="app-footer"></app-footer>
     </div>
   </div>
-  <app-footer></app-footer>
+</div>
+
+

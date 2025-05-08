@@ -8,6 +8,54 @@ $dark: #202124;
 $light: #f8f9fa;
 $danger: #ea4335;
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px; /* Ajustez selon la hauteur réelle de votre header */
+  background: white; /* Fond solide pour éviter le transparent */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombre optionnelle */
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  margin-top: 60px; /* Doit correspondre à la hauteur du header */
+}
+
+.app-sidebar {
+  width: 250px;
+  background: #f8f9fa;
+  height: calc(100vh - 60px); /* 100vh moins la hauteur du header */
+  position: sticky;
+  top: 60px; /* Positionné juste sous le header */
+  overflow-y: auto; /* Permet le scroll si contenu trop long */
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.app-footer {
+  padding: 15px;
+  background: #343a40;
+  color: white;
+}
+
 /* Style liste des dossiers */
 .container {
   max-width: 1400px;

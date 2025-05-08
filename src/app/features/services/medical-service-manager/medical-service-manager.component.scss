@@ -1,0 +1,104 @@
+.service-manager-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  
+    .form-group {
+      margin-bottom: 1.5rem;
+  
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #34495e;
+  
+        &:after {
+          content: '*';
+          color: #e74c3c;
+          margin-left: 0.2rem;
+          opacity: 0.8;
+        }
+      }
+  
+      input, textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+  
+        &.invalid {
+          border-color: #e74c3c;
+        }
+      }
+  
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+  
+      .error-message {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+      }
+    }
+  
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+  
+      button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+  
+      .submit-btn {
+        background: #2ecc71;
+        color: white;
+  
+        &:hover {
+          background: #27ae60;
+        }
+  
+        &:disabled {
+          background: #95a5a6;
+          cursor: not-allowed;
+        }
+      }
+  
+      .delete-btn {
+        background: #e74c3c;
+        color: white;
+  
+        &:hover {
+          background: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+      }
+  
+      .cancel-btn {
+        background: #ecf0f1;
+        color: #7f8c8d;
+  
+        &:hover {
+          background: #bdc3c7;
+        }
+      }
+    }
+  }

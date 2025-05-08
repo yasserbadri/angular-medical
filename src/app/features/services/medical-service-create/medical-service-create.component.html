@@ -1,0 +1,39 @@
+<p>medical-service-create works!</p>
+<!-- components/service-create/service-create.component.html -->
+<div class="create-service-form">
+    <h2>Créer un nouveau service médical</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Nom du service</label>
+        <input type="text" [(ngModel)]="newService.name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Description</label>
+        <textarea [(ngModel)]="newService.description" name="description" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Catégorie</label>
+        <input type="text" [(ngModel)]="newService.category" name="category" required>
+      </div>
+      
+      <div class="form-group">
+        <label>URL de l'image</label>
+        <input type="text" [(ngModel)]="newService.imageUrl" name="imageUrl">
+      </div>
+      
+      <div class="form-group">
+        <label>Prix (optionnel)</label>
+        <input type="number" [(ngModel)]="newService.price" name="price" step="0.01">
+      </div>
+      
+      <div class="form-group">
+        <label>Durée (minutes)</label>
+        <input type="number" [(ngModel)]="newService.durationMinutes" name="durationMinutes" required>
+      </div>
+      
+      <button type="submit" class="submit-btn">Créer le service</button>
+    </form>
+  </div>

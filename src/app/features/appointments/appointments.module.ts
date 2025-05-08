@@ -5,7 +5,7 @@ import { AppointmentsRoutingModule } from './appointments-routing.module';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { AppointmentCreateComponent } from './components/appointment-create/appointment-create.component';
 import { AppointmentDetailComponent } from './components/appointment-detail/appointment-detail.component'; // ici l'import du routing
-import { FormsModule } from '@angular/forms'; // 👈 À AJOUTER ICI
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // 👈 À AJOUTER ICI
 import { SharedModule } from '../../shared/shared.module';
 import { DoctorInfoComponent } from './doctor-info/doctor-info.component';
 import { CalendarRdvComponent } from './calendar-rdv/calendar-rdv.component';
@@ -38,7 +38,8 @@ import { DoctorDetailsComponent } from './doctor-details/doctor-details.componen
     CommonModule,
     AppointmentsRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
 
   ],
   exports: [

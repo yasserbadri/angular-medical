@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5278/api/auth'; 
+  public apiUrl = 'http://localhost:5278/api/auth'; 
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -28,6 +28,7 @@ export class AuthService {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
         this.currentUserSubject.next(res.user);
+        console.log('Utilisateur connecté:', res.user);
       })
     );
   }
@@ -70,9 +71,38 @@ export class AuthService {
   }
   redirectUrl: string | null = null;
 
+  
+  // auth.service.ts
+// auth.service.ts
+getToken(): string | null {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.warn('No token found in localStorage');
+    return null;
+  }
+  return token;
+}
 
-
-
+isTokenValid(): boolean {
+  const token = this.getToken();
+  if (!token) return false;
+  
+  try {
+    // Decode token without verification
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const isExpired = payload.exp * 1000 < Date.now();
+    
+    if (isExpired) {
+      console.warn('Token expired at', new Date(payload.exp * 1000));
+      
+    }
+    
+    return !isExpired;
+  } catch (e) {
+    console.error('Error decoding token:', e);
+    return false;
+  }
+}
 
 
 
@@ -147,9 +177,11 @@ export class AuthService {
     return !!localStorage.getItem('token'); // Ou votre méthode de vérification
   }
 
-  getToken(): string | null {
+  /*getToken(): string | null {
     return localStorage.getItem('token');
   }
+*/
+  
 
  
 

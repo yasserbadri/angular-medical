@@ -1,29 +1,52 @@
-<app-header-appointment></app-header-appointment>
-<div class="form-container">
-    <div class="form-header">
-      <h2>Créer un nouveau dossier médical</h2>
-      <p class="subtitle">Renseignez les informations médicales du patient</p>
+<div class="app-container">
+  <!-- Header fixé en haut -->
+  <app-header-appointment class="app-header"></app-header-appointment>
+  
+  <!-- Contenu principal positionné sous le header -->
+  <div class="main-layout">
+    <!-- Sidebar à gauche -->
+    <app-doctor-sidebar class="app-sidebar"></app-doctor-sidebar>
+    
+    <!-- Contenu principal + footer à droite -->
+    <div class="content-area">
+      <div class="main-content">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Créer un nouveau dossier médical</h2>
+            <p class="subtitle">Renseignez les informations médicales du patient</p>
+          </div>
+        
+          <form #medicalRecordForm="ngForm" (ngSubmit)="onSubmit(medicalRecordForm)" class="form-body">
+            <div class="form-group">
+              <label for="recordDetails">Détails du dossier <span class="required">*</span></label>
+              <textarea id="recordDetails" rows="6"
+                        [(ngModel)]="newRecord.recordDetails" name="recordDetails"
+                        required placeholder="Décrivez en détail l'état de santé du patient..."></textarea>
+              <div class="char-counter">{{ (newRecord.recordDetails || '').length }}/2000</div>
+            </div>
+        
+            <div class="form-footer">
+              <button type="button" class="btn btn-secondary" routerLink="/medical-records">
+                <i>←</i> Annuler
+              </button>
+              <button type="submit" class="btn btn-primary" 
+                      [disabled]="!medicalRecordForm.valid || saving">
+                <span *ngIf="!saving"><i>✓</i> Enregistrer</span>
+                <span *ngIf="saving" class="saving"><i>⏳</i> Enregistrement...</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- Vos autres composants/sections -->
+      </div>
+      <app-footer class="app-footer"></app-footer>
     </div>
-  
-    <form #medicalRecordForm="ngForm" (ngSubmit)="onSubmit(medicalRecordForm)" class="form-body">
-      <div class="form-group">
-        <label for="recordDetails">Détails du dossier <span class="required">*</span></label>
-        <textarea id="recordDetails" rows="6"
-                  [(ngModel)]="newRecord.recordDetails" name="recordDetails"
-                  required placeholder="Décrivez en détail l'état de santé du patient..."></textarea>
-        <div class="char-counter">{{ (newRecord.recordDetails || '').length }}/2000</div>
-      </div>
-  
-      <div class="form-footer">
-        <button type="button" class="btn btn-secondary" routerLink="/medical-records">
-          <i>←</i> Annuler
-        </button>
-        <button type="submit" class="btn btn-primary" 
-                [disabled]="!medicalRecordForm.valid || saving">
-          <span *ngIf="!saving"><i>✓</i> Enregistrer</span>
-          <span *ngIf="saving" class="saving"><i>⏳</i> Enregistrement...</span>
-        </button>
-      </div>
-    </form>
   </div>
-  <app-footer></app-footer>
+</div>
+
+
+
+
+
+
+ 

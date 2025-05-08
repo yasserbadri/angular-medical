@@ -1,0 +1,58 @@
+<div class="doctor-search-container">
+    <div class="search-bar">
+      <div class="search-input-group">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Rechercher un médecin..." 
+               [(ngModel)]="searchName" (input)="searchByName()"
+               class="search-input">
+      </div>
+      <div class="search-input-group">
+        <span class="search-icon">🏥</span>
+        <input type="text" placeholder="Spécialité médicale..." 
+               [(ngModel)]="searchSpeciality" (input)="searchBySpeciality()"
+               class="search-input">
+      </div>
+    </div>
+    
+    <div class="doctor-cards">
+      <div class="doctor-card" *ngFor="let doctor of doctors">
+        <div class="card-header">
+          <div class="avatar-container">
+            <img *ngIf="doctor.profilePhotoUrl" [src]="doctor.profilePhotoUrl" 
+                 alt="Photo du docteur" class="doctor-avatar"
+                 onerror="this.src='assets/default-avatar.png'"/>
+          </div>
+          <div class="doctor-title">
+            <h3>{{ doctor.firstName }} {{ doctor.lastName }}</h3>
+            <span class="speciality-badge">{{ doctor.speciality }}</span>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <p class="doctor-description">{{ doctor.description }}</p>
+          
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="icon">✉️</span>
+              <a [href]="'mailto:' + doctor.email">{{ doctor.email }}</a>
+            </div>
+            
+            <div class="contact-item" *ngIf="doctor.phone">
+              <span class="icon">📞</span>
+              <a [href]="'tel:' + doctor.phone">{{ doctor.phone }}</a>
+            </div>
+            
+            <div class="contact-item" *ngIf="doctor.whatsapp">
+              <span class="icon">💬</span>
+              <a [href]="'https://wa.me/' + doctor.whatsapp" target="_blank">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-footer">
+          <button class="btn btn-primary">Prendre rendez-vous</button>
+          <button class="btn btn-secondary">Voir le profil</button>
+        </div>
+      </div>
+    </div>
+  </div>

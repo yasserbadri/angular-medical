@@ -46,10 +46,19 @@ export class LoginComponent {
   
     this.authService.login(email, password).subscribe({
       next: (res) => {
+        console.log('Réponse du login:', res);
+
         this.loading = false;
-        // Redirection vers la page précédente ou la page d'accueil
-        const redirectUrl = this.authService.redirectUrl || '/';
-        this.router.navigate([redirectUrl]);
+
+      
+        const role = res.user?.role?.toLowerCase(); // ← 'doctor' ou 'patient'
+       console.log('Rôle détecté:', role);
+        if (role === 'doctor') {
+          this.router.navigate(['/doctor/dashboard']);
+        } else if (role === 'patient') {
+          this.router.navigate(['/patient/dashboard']);
+          localStorage.setItem('role', role);
+        } 
       },
       error: (err) => {
         this.loading = false;

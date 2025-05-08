@@ -1,0 +1,33 @@
+/* service-list.component.scss */
+table {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .mat-column-actions {
+    width: 120px;
+    text-align: center;
+  }
+  
+  .loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* confirm-dialog.component.scss */
+  mat-dialog-actions {
+    padding: 8px 24px 24px 24px;
+    justify-content: flex-end;
+  }
+  
+  button {
+    margin-left: 8px;
+  }

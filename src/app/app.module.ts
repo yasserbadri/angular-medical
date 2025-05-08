@@ -7,7 +7,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { AppointmentsModule } from './features/appointments/appointments.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { UsersModule } from './features/users/users.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutModule } from './components/layout/layout.module';
@@ -21,6 +21,22 @@ import { CommonModule } from '@angular/common';
 import { QuickNoteComponent } from './features/doctors/quick-note/quick-note.component';
 import { DoctorSidebarComponent } from './features/doctors/doctor-sidebar/doctor-sidebar.component';
 import { AuthService } from './features/auth/auth.service';
+import { HomeDoctorComponent } from './features/home/home-doctor/home-doctor.component';
+import { HomePatientComponent } from './features/home/home-patient/home-patient.component';
+import { DoctorListComponent } from './features/doctor-page/doctor-list/doctor-list.component';
+import { DoctorPageModule } from './features/doctor-page/doctor-page.module';
+import { AuthInterceptor } from './auth.interceptor';
+import { MedicalServiceComponent } from './features/services/medical-service/medical-service.component';
+import { MedicalServiceCreateComponent } from './features/services/medical-service-create/medical-service-create.component';
+import { MedicalServiceManagerComponent } from './features/services/medical-service-manager/medical-service-manager.component';
+import { MedicalServiceListComponent } from './features/services/medical-service-list/medical-service-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { ConfirmDialogComponent } from './features/services/confirm-dialog/confirm-dialog.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -33,6 +49,13 @@ import { AuthService } from './features/auth/auth.service';
     MedicalRecordListComponent,
     
     QuickNoteComponent,
+          HomeDoctorComponent,
+          HomePatientComponent,
+          MedicalServiceComponent,
+          MedicalServiceCreateComponent,
+          MedicalServiceManagerComponent,
+          MedicalServiceListComponent,
+          
 
     
   
@@ -56,7 +79,16 @@ import { AuthService } from './features/auth/auth.service';
     ReactiveFormsModule,
     SharedModule,
     //MedicalRecordModule,
-    DoctorSidebarComponent
+    DoctorSidebarComponent,
+    DoctorPageModule,
+    MatTableModule,
+    
+    MatIconModule,
+    
+    MatSnackBarModule,
+    MatCardModule,
+    
+    
     
     
     
@@ -64,7 +96,11 @@ import { AuthService } from './features/auth/auth.service';
     
   ],
   providers: [AuthGuard,
-    DoctorProfileGuard,AuthService],
+    DoctorProfileGuard,AuthService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

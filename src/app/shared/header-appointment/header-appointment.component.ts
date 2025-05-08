@@ -31,6 +31,8 @@ export class HeaderAppointmentComponent implements OnInit  {
   isLoggedInStatus = false;
 
   ngOnInit() {
+    console.log("TEST CONNECTION  :  " , this.isLoggedIn)
+    this.isLoggedInStatus = this.authService.isAuthenticated();
     this.checkAuthStatus();
     // S'abonner aux changements d'état d'authentification
     this.authService.currentUser$.subscribe(() => {

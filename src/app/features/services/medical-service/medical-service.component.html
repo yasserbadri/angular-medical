@@ -1,0 +1,45 @@
+<app-header-appointment></app-header-appointment>
+<!-- components/services/services.component.html -->
+<div class="services-page">
+    <div class="header-section">
+      <h1>Nos Services Médicaux</h1>
+      <p>Découvrez nos spécialités et prenez rendez-vous en ligne</p>
+    </div>
+  
+    <div class="filter-section">
+      <button 
+        *ngFor="let category of categories" 
+        (click)="filterByCategory(category)"
+        [class.active]="selectedCategory === category">
+        {{ category }}
+      </button>
+      <button 
+        (click)="filterByCategory(null)"
+        [class.active]="selectedCategory === null">
+        Tous les services
+      </button>
+    </div>
+  
+    <div class="services-grid">
+      <div class="service-card" *ngFor="let service of filteredServices">
+        <div class="service-image">
+          <img [src]="service.imageUrl || 'assets/default-service.jpg'" alt="{{ service.name }}">
+        </div>
+        <div class="service-info">
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.description }}</p>
+          <div class="service-meta">
+            <span class="duration">{{ service.durationMinutes }} min</span>
+            <span class="price" *ngIf="service.price">{{ service.price | currency }}</span>
+          </div>
+          <button 
+            class="book-btn"
+            routerLink="/appointment"
+            [queryParams]="{serviceId: service.id}">
+            Prendre rendez-vous
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>

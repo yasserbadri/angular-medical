@@ -1,0 +1,65 @@
+<p>medical-service-manager works!</p>
+<div class="service-manager-container">
+    <h2>{{ isEditMode ? 'Modifier le service' : 'Créer un nouveau service' }}</h2>
+    
+    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Nom du service*</label>
+        <input type="text" formControlName="name" [class.invalid]="serviceForm.get('name')?.invalid && serviceForm.get('name')?.touched">
+        <div *ngIf="serviceForm.get('name')?.invalid && serviceForm.get('name')?.touched" class="error-message">
+          Le nom est obligatoire
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Description*</label>
+        <textarea formControlName="description" [class.invalid]="serviceForm.get('description')?.invalid && serviceForm.get('description')?.touched"></textarea>
+        <div *ngIf="serviceForm.get('description')?.invalid && serviceForm.get('description')?.touched" class="error-message">
+          La description est obligatoire
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Catégorie*</label>
+        <input type="text" formControlName="category" [class.invalid]="serviceForm.get('category')?.invalid && serviceForm.get('category')?.touched">
+        <div *ngIf="serviceForm.get('category')?.invalid && serviceForm.get('category')?.touched" class="error-message">
+          La catégorie est obligatoire
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>URL de l'image</label>
+        <input type="text" formControlName="imageUrl">
+      </div>
+      
+      <div class="form-group">
+        <label>Prix</label>
+        <input type="number" formControlName="price" step="0.01">
+      </div>
+      
+      <div class="form-group">
+        <label>Durée (minutes)*</label>
+        <input type="number" formControlName="durationMinutes" [class.invalid]="serviceForm.get('durationMinutes')?.invalid && serviceForm.get('durationMinutes')?.touched">
+        <div *ngIf="serviceForm.get('durationMinutes')?.errors?.['required'] && serviceForm.get('durationMinutes')?.touched" class="error-message">
+          La durée est obligatoire
+        </div>
+        <div *ngIf="serviceForm.get('durationMinutes')?.errors?.['min']" class="error-message">
+          La durée doit être d'au moins 1 minute
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" [disabled]="serviceForm.invalid" class="submit-btn">
+          {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+        
+        <button *ngIf="isEditMode" type="button" (click)="onDelete()" class="delete-btn">
+          Supprimer
+        </button>
+        
+        <button type="button" (click)="router.navigate(['/services'])" class="cancel-btn">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>

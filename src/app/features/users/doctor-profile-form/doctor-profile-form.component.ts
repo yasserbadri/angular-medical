@@ -4,6 +4,7 @@ import { DoctorService } from '../../users/doctor.service';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-profile-form',
@@ -33,7 +34,7 @@ export class DoctorProfileFormComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(500)]],
       diploma: ['', Validators.required],
       isGeneralist: [false],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{15}$/)]],
       whatsapp: ['', Validators.pattern(/^[0-9]{10}$/)],
       facebook: [''],
       instagram: [''],
@@ -44,7 +45,7 @@ export class DoctorProfileFormComponent implements OnInit {
   ngOnInit(): void {
     const currentUser = this.authService.getCurrentUser();
     if (currentUser?.role === 'Doctor' && currentUser?.isProfileComplete) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/doctor/dashboard']);
     } else if (currentUser?.profileData) {
       this.profileForm.patchValue(currentUser.profileData);
     }
@@ -63,7 +64,74 @@ export class DoctorProfileFormComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
+  // doctor-profile-form.component.ts
+// doctor-profile-form.component.ts
+async onSubmit(): Promise<void> {
+  if (this.profileForm.invalid) {
+    this.markAllAsTouched();
+    this.errorMessage = 'Please fill all required fields correctly';
+    console.log("form invalid")
+    return;
+  }
 
+  // Verify token before proceeding
+  if (!this.authService.isTokenValid()) {
+    this.errorMessage = 'Your session has expired. Please login again.';
+    console.log('Session expired. Redirecting to login...');
+    this.router.navigate(['/complete-profile']);
+    return;
+  }
+
+  this.isLoading = true;
+  this.errorMessage = '';
+
+  try {
+    const formData = new FormData();
+    
+    // Append all form values
+    Object.keys(this.profileForm.value).forEach(key => {
+      const value = this.profileForm.get(key)?.value;
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+
+    // Append file if exists
+    if (this.selectedFile) {
+      formData.append('profilePhoto', this.selectedFile, this.selectedFile.name);
+    }
+
+    // Debug FormData contents
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    try {
+      const response = await lastValueFrom(this.doctorService.completeProfile(formData));
+      console.log(response, "what is happening");
+    } catch (error) {
+      console.log(error);
+    }
+    
+
+    this.showSuccessMessage = true;
+    setTimeout(() => this.router.navigate(['/doctor/dashboard']), 2000);
+  } catch (error: any) {
+    console.error('Submission error:', error);
+    if (error.status === 401) {
+      this.errorMessage = 'Session expired. Please login again.';
+      console.log("profile incomplete")
+    } else {
+      this.errorMessage = error.error?.message || 'Failed to update profile';
+      if (error.error?.errors) {
+        this.errorMessage += ': ' + error.error.errors.join(', ');
+      }
+    }
+  } finally {
+    this.isLoading = false;
+  }
+}
+/*
   onSubmit(): void {
     if (this.profileForm.invalid) {
       this.markAllAsTouched();
@@ -104,7 +172,7 @@ export class DoctorProfileFormComponent implements OnInit {
         this.isLoading = false;
       }
     });
-  }
+  }*/
 
   markAllAsTouched(): void {
     Object.values(this.profileForm.controls).forEach(control => {
