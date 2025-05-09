@@ -22,6 +22,7 @@ import { MedicalServiceComponent } from './features/services/medical-service/med
 import { MedicalServiceCreateComponent } from './features/services/medical-service-create/medical-service-create.component';
 import { MedicalServiceManagerComponent } from './features/services/medical-service-manager/medical-service-manager.component';
 import { MedicalServiceListComponent } from './features/services/medical-service-list/medical-service-list.component';
+import { DoctorProfileComponent } from './features/appointments/doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
 
@@ -82,6 +83,7 @@ const routes: Routes = [
   },
   { path: 'medical-records', component: MedicalRecordListComponent },
   { path: 'medical-records/create', component: MedicalRecordCreateComponent },
+  { path: 'doctor/:id', component: DoctorProfileComponent }
   /*{ path: '', component: HomeComponent },
   { 
     path: 'profile', 

@@ -1,333 +1,280 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 .doctor-profile-container {
-  font-family: 'Poppins', sans-serif;
-  max-width: 600px;
+  max-width: 800px;
   margin: 2rem auto;
-  padding: 0 1rem;
-}
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
 
-/* Loading State */
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  text-align: center;
-
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(24, 22, 122, 0.1);
-    border-top-color: #83D1C3;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: #18167A;
-    font-weight: 500;
-  }
-}
-
-/* Error State */
-.error-state {
-  background: #FFEBEE;
-  border-radius: 12px;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid #FFCDD2;
-
-  .error-icon {
-    background: #F44336;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: #D32F2F;
-    margin-bottom: 1.5rem;
-  }
-
-  .retry-btn {
-    background: linear-gradient(135deg, #83D1C3, #18167A);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
-
-    &:hover {
-      transform: translateY(-2px);
-    }
-  }
-}
-
-/* Doctor Card */
-.doctor-card {
-  background: white;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(24, 22, 122, 0.1);
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba(131, 209, 195, 0.3);
-  animation: fadeIn 0.6s ease-out;
-
-  .card-background-elements {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-
-    .circle-element {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(131, 209, 195, 0.08);
-
-      &:first-child {
-        width: 200px;
-        height: 200px;
-        top: -50px;
-        right: -50px;
-      }
-
-      &:last-child {
-        width: 150px;
-        height: 150px;
-        bottom: -30px;
-        left: -30px;
-      }
-    }
-  }
-
-  .card-content {
-    position: relative;
-    z-index: 1;
+  .loading-state {
+    text-align: center;
     padding: 2rem;
+    
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   }
 
-  .doctor-header {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+  .error-state {
+    background-color: #ffeeee;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    
+    .error-icon {
+      background-color: #ff4444;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
 
-    .doctor-avatar {
-      position: relative;
-      flex-shrink: 0;
+    .retry-btn {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
 
-      .avatar-img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid white;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: #cc0000;
       }
+    }
+  }
 
-      .availability-badge {
+  .doctor-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+
+    .card-background-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+
+      .circle-element {
         position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 15px;
-        height: 15px;
-        background: #4CAF50;
         border-radius: 50%;
-        border: 2px solid white;
+        background: rgba(67, 97, 238, 0.1);
+        
+        &:first-child {
+          width: 200px;
+          height: 200px;
+          top: -50px;
+          right: -50px;
+        }
+
+        &:last-child {
+          width: 150px;
+          height: 150px;
+          bottom: -30px;
+          left: -30px;
+        }
       }
     }
 
-    .doctor-info {
-      flex: 1;
+    .card-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+    }
 
-      h1 {
-        color: #18167A;
-        font-size: 1.4rem;
-        margin: 0 0 0.5rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+    .doctor-header {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
 
-      .verified-badge {
-        color: #4CAF50;
-        font-size: 1.2rem;
-      }
-
-      .specialty-badge {
-        background: linear-gradient(135deg, #83D1C3, #18167A);
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        display: inline-block;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-
-      .rating-container {
-        margin: 0.5rem 0;
-
-        .stars {
-          color: #FFC107;
-          letter-spacing: 2px;
+      .doctor-avatar {
+        position: relative;
+        
+        .avatar-img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 4px solid white;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .rating-text {
-          color: #5a5a5a;
-          font-size: 0.8rem;
-          margin-left: 0.5rem;
+        .availability-badge {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: #4CAF50;
+          border: 2px solid white;
         }
       }
 
-      .education-info {
-        p {
-          color: #5a5a5a;
-          font-size: 0.85rem;
-          margin: 0.3rem 0;
+      .doctor-info {
+        flex: 1;
+
+        h1 {
+          margin: 0;
+          color: #2b2d42;
+          font-size: 1.8rem;
           display: flex;
           align-items: center;
+          gap: 0.5rem;
 
-          &::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            background: #83D1C3;
-            border-radius: 50%;
-            margin-right: 0.5rem;
+          .verified-badge {
+            color: #4361ee;
+            font-size: 1.5rem;
+          }
+        }
+
+        .specialty-badge {
+          display: inline-block;
+          background-color: #4361ee;
+          color: white;
+          padding: 0.25rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          margin: 0.5rem 0;
+        }
+
+        .rating-container {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin: 0.5rem 0;
+
+          .stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+          }
+
+          .rating-text {
+            color: #6c757d;
+            font-size: 0.9rem;
+          }
+        }
+
+        .education-info {
+          margin-top: 0.5rem;
+
+          .degree {
+            font-weight: 500;
+            margin: 0.25rem 0;
+            color: #2b2d42;
+          }
+
+          .university {
+            margin: 0.25rem 0;
+            color: #6c757d;
+            font-size: 0.9rem;
           }
         }
       }
     }
-  }
 
-  .section-divider {
-    display: flex;
-    align-items: center;
-    margin: 1.5rem 0;
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(131, 209, 195, 0.5), transparent);
-    }
-
-    .divider-icon {
-      margin: 0 1rem;
-      color: #83D1C3;
-      background: white;
-      padding: 0.5rem;
-      border-radius: 50%;
-    }
-  }
-
-  .about-section {
-    margin-bottom: 1.5rem;
-
-    h3 {
-      color: #18167A;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .bio-text {
-      color: #5a5a5a;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-  }
-
-  .action-buttons {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-
-    .action-btn {
-      flex: 1;
-      padding: 0.75rem;
-      border-radius: 10px;
-      font-weight: 600;
+    .section-divider {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid;
+      margin: 1.5rem 0;
 
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background-color: #e9ecef;
       }
 
-      &.whatsapp {
-        border-color: #25D366;
-        color: #25D366;
-        background: rgba(37, 211, 102, 0.05);
+      .divider-icon {
+        margin: 0 1rem;
+        color: #4361ee;
+        font-size: 1.5rem;
+      }
+    }
 
-        &:hover {
-          background: rgba(37, 211, 102, 0.1);
+    .about-section {
+      margin-bottom: 1.5rem;
+
+      h3 {
+        color: #2b2d42;
+        margin-bottom: 0.5rem;
+      }
+
+      .bio-text {
+        color: #6c757d;
+        line-height: 1.6;
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+
+      .action-btn {
+        flex: 1;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
-      }
 
-      &.call {
-        border-color: #18167A;
-        color: #18167A;
-        background: rgba(24, 22, 122, 0.05);
-
-        &:hover {
-          background: rgba(24, 22, 122, 0.1);
+        i {
+          font-size: 1.2rem;
         }
-      }
 
-      &.email {
-        border-color: #83D1C3;
-        color: #83D1C3;
-        background: rgba(131, 209, 195, 0.05);
+        &.whatsapp {
+          background-color: #25D366;
+          color: white;
 
-        &:hover {
-          background: rgba(131, 209, 195, 0.1);
+          &:hover:not(:disabled) {
+            background-color: #128C7E;
+          }
+        }
+
+        &.call {
+          background-color: #4361ee;
+          color: white;
+
+          &:hover:not(:disabled) {
+            background-color: #3a0ca3;
+          }
+        }
+
+        &.email {
+          background-color: #6c757d;
+          color: white;
+
+          &:hover:not(:disabled) {
+            background-color: #495057;
+          }
         }
       }
     }
-  }
-}
-
-/* Animations */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .doctor-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    .doctor-avatar {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .action-buttons {
-    flex-direction: column;
   }
 }

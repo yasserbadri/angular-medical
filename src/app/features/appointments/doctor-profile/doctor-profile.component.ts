@@ -9,72 +9,66 @@ import { DoctorService } from '../../doctors/doctor.service';
   styleUrl: './doctor-profile.component.scss'
 })
 export class DoctorProfileComponent  implements OnInit {
-  doctor: any;
+  doctors: any[] = [];
   loading = true;
   error: string | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private doctorService: DoctorService
-  ) {}
+  constructor(private doctorService: DoctorService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const doctorId = params['id'];
-      this.loadDoctor(doctorId);
-    });
+    this.loadDoctors();
   }
 
-  loadDoctor(id: string): void {
+  loadDoctors(): void {
     this.loading = true;
     this.error = null;
     
-    this.doctorService.getDoctorById(id).subscribe({
+    this.doctorService.getAllDoctors().subscribe({
       next: (data) => {
-        this.doctor = this.transformDoctorData(data);
+        this.doctors = this.transformDoctorsData(data);
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Échec du chargement du profil. Veuillez réessayer plus tard.';
+        this.error = 'Échec du chargement des profils des médecins';
         this.loading = false;
-        console.error('Error loading doctor:', err);
+        console.error('Error loading doctors:', err);
       }
     });
   }
 
-  private transformDoctorData(apiData: any): any {
-    return {
-      id: apiData.id,
-      name: `Dr. ${apiData.firstName} ${apiData.lastName}`,
-      specialty: apiData.speciality || 'Généraliste',
-      university: apiData.diploma || 'Diplôme non spécifié',
-      degree: apiData.description || 'Médecin qualifié',
-      photo: apiData.profilePhotoUrl || 'assets/images/utilisateurConnecte.png',
+  private transformDoctorsData(apiData: any[]): any[] {
+    return apiData.map(doctor => ({
+      id: doctor.id,
+      name: `Dr. ${doctor.firstName} ${doctor.lastName}`,
+      specialty: doctor.speciality || 'Généraliste',
+      university: doctor.diploma || 'Diplôme non spécifié',
+      degree: doctor.description || 'Médecin qualifié',
+      photo: doctor.profilePhotoUrl || 'assets/images/default-doctor.png',
       contactInfo: {
-        phone: apiData.phoneNumber,
-        whatsapp: apiData.whatsappNumber,
-        email: apiData.email
+        phone: doctor.phoneNumber,
+        whatsapp: doctor.whatsappNumber,
+        email: doctor.email
       },
-      rating: apiData.rating || 4.8,
-      reviewsCount: apiData.reviewsCount || 24
-    };
+      rating: doctor.rating || 4.8,
+      reviewsCount: doctor.reviewsCount || 24
+    }));
   }
 
-  contactViaWhatsApp() {
-    if (this.doctor?.contactInfo?.whatsapp) {
-      window.open(`https://wa.me/${this.doctor.contactInfo.whatsapp}`, '_blank');
+  contactViaWhatsApp(whatsappNumber: string) {
+    if (whatsappNumber) {
+      window.open(`https://wa.me/${whatsappNumber}`, '_blank');
     }
   }
 
-  contactViaPhone() {
-    if (this.doctor?.contactInfo?.phone) {
-      window.open(`tel:${this.doctor.contactInfo.phone}`, '_blank');
+  contactViaPhone(phoneNumber: string) {
+    if (phoneNumber) {
+      window.open(`tel:${phoneNumber}`, '_blank');
     }
   }
 
-  contactViaEmail() {
-    if (this.doctor?.contactInfo?.email) {
-      window.open(`mailto:${this.doctor.contactInfo.email}`, '_blank');
+  contactViaEmail(email: string) {
+    if (email) {
+      window.open(`mailto:${email}`, '_blank');
     }
   }
 }

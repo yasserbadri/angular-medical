@@ -1,90 +1,65 @@
- <!--<div class="doctor-card">
-    <div class="header">
-      <img [src]="doctor.photo" alt="Doctor Photo" class="photo" />
-      <div class="info">
-        <h2>{{ doctor.name }} <span class="verified">✔</span></h2>
-        <span class="specialty">{{ doctor.specialty }}</span>
-        <p class="university">{{ doctor.university }}</p>
-        <p class="degree">{{ doctor.degree }}</p>
-      </div>
-    </div>
-   <div class="contacts">
-      <button *ngFor="let method of doctor.contactMethods" [ngClass]="method.color + ' contact-button ' + method.style">
-        {{ method.icon }} {{ method.type }}
-      </button>
-    </div>
-  </div>-->
-  <div class="doctor-profile-container">
-    <!-- Loading State -->
-    <div *ngIf="loading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Chargement du profil du médecin...</p>
-    </div>
-  
-    <!-- Error State -->
-    <div *ngIf="error" class="error-state">
-      <div class="error-icon">!</div>
-      <p>{{ error }}</p>
-      <button class="retry-btn" (click)="loadDoctor(doctor?.id)">Réessayer</button>
-    </div>
-  
-    <!-- Doctor Profile -->
-    <div *ngIf="doctor && !loading" class="doctor-card">
-      <div class="card-background-elements">
-        <div class="circle-element"></div>
-        <div class="circle-element"></div>
-      </div>
-  
-      <div class="card-content">
-        <div class="doctor-header">
-          <div class="doctor-avatar">
-            <img [src]="doctor.photo" alt="Photo du Dr. {{ doctor.name }}" class="avatar-img">
-            <div class="availability-badge"></div>
-          </div>
+<div class="doctor-profile-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement des profils des médecins...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <div class="error-icon">!</div>
+    <p>{{ error }}</p>
+    <button class="retry-btn" (click)="loadDoctors()">Réessayer</button>
+  </div>
+
+  <!-- Doctors List -->
+  <div *ngIf="doctors.length > 0 && !loading" class="doctors-grid">
+    <div *ngFor="let doctor of doctors" class="doctor-card">
+      <div class="doctor-header">
+        <div class="doctor-avatar">
+          <img [src]="doctor.photo" 
+               [alt]="'Photo de ' + doctor.name"
+               class="avatar-img">
+        </div>
+        
+        <div class="doctor-info">
+          <h2>{{ doctor.name }}</h2>
+          <div class="specialty-badge">{{ doctor.specialty }}</div>
           
-          <div class="doctor-info">
-            <h1>{{ doctor.name }} <span class="verified-badge">✓</span></h1>
-            <div class="specialty-badge">{{ doctor.specialty }}</div>
-            
-            <div class="rating-container">
-              <span class="stars">★★★★★</span>
-              <span class="rating-text">{{ doctor.rating }} ({{ doctor.reviewsCount }} avis)</span>
-            </div>
-  
-            <div class="education-info">
-              <p class="degree">{{ doctor.degree }}</p>
-              <p class="university">{{ doctor.university }}</p>
-            </div>
+          <div class="rating-container">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">{{ doctor.rating }} ({{ doctor.reviewsCount }} avis)</span>
+          </div>
+
+          <div class="education-info">
+            <p class="degree">{{ doctor.degree }}</p>
+            <p class="university">{{ doctor.university }}</p>
           </div>
         </div>
-  
-        <div class="section-divider">
-          <div class="divider-line"></div>
-          <div class="divider-icon">
-            <i class="bi bi-heart-pulse"></i>
-          </div>
-          <div class="divider-line"></div>
-        </div>
-  
-        <div class="about-section">
-          <h3>À propos du Dr. {{ doctor.name.split(' ')[2] }}</h3>
-          <p class="bio-text">
-            Médecin expérimenté avec une approche patient-centrée. Spécialisé dans 
-            le diagnostic précis et les traitements personnalisés.
-          </p>
-        </div>
-  
-        <div class="action-buttons">
-          <button class="action-btn whatsapp" (click)="contactViaWhatsApp()">
-            <i class="bi bi-whatsapp"></i> WhatsApp
-          </button>
-          <button class="action-btn call" (click)="contactViaPhone()">
-            <i class="bi bi-telephone"></i> Appel
-          </button>
-          <button class="action-btn email" (click)="contactViaEmail()">
-            <i class="bi bi-envelope"></i> Email
-          </button>
-        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn whatsapp" 
+                (click)="contactViaWhatsApp(doctor.contactInfo.whatsapp)"
+                [disabled]="!doctor.contactInfo.whatsapp">
+          <i class="bi bi-whatsapp"></i> WhatsApp
+        </button>
+        <button class="action-btn call" 
+                (click)="contactViaPhone(doctor.contactInfo.phone)"
+                [disabled]="!doctor.contactInfo.phone">
+          <i class="bi bi-telephone"></i> Appel
+        </button>
+        <button class="action-btn email" 
+                (click)="contactViaEmail(doctor.contactInfo.email)"
+                [disabled]="!doctor.contactInfo.email">
+          <i class="bi bi-envelope"></i> Email
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- No Doctors Found -->
+  <div *ngIf="doctors.length === 0 && !loading && !error" class="no-doctors">
+    <p>Aucun médecin trouvé.</p>
+  </div>
+</div>
