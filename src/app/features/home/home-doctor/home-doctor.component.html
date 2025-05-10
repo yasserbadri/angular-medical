@@ -1,18 +1,124 @@
 <div class="app-container">
-    <!-- Header fixé en haut -->
-    <app-header-appointment class="app-header"></app-header-appointment>
+  <!-- Header existant inchangé -->
+  <app-header-appointment class="app-header"></app-header-appointment>
+  
+  <div class="main-layout">
+    <!-- Sidebar existant inchangé -->
+    <app-doctor-sidebar class="app-sidebar"></app-doctor-sidebar>
     
-    <!-- Contenu principal positionné sous le header -->
-    <div class="main-layout">
-      <!-- Sidebar à gauche -->
-      <app-doctor-sidebar class="app-sidebar"></app-doctor-sidebar>
-      
-      <!-- Contenu principal + footer à droite -->
-      <div class="content-area">
-        <div class="main-content">
-          <!-- Vos autres composants/sections -->
+    <!-- Contenu principal enrichi -->
+    <div class="content-area">
+      <div class="main-content">
+        <!-- Section Bienvenue -->
+        <div *ngIf="isLoggedIn" class="welcome-banner">
+          <h1>Bienvenue, <span>Dr. {{ currentUser?.firstName }} {{ currentUser?.lastName }}</span></h1>
+          <p>Voici votre activité aujourd'hui</p>
+          <div class="animated-wave"></div>
         </div>
-        <app-footer class="app-footer"></app-footer>
+
+        <!-- Statistiques -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-icon pulse">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">12</span>
+              <span class="stat-label">Rendez-vous</span>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon pulse" style="animation-delay: 0.2s">
+              <i class="fas fa-user-injured"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">8</span>
+              <span class="stat-label">Patients</span>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon pulse" style="animation-delay: 0.4s">
+              <i class="fas fa-comment-medical"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Messages</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agenda -->
+        <div class="agenda-container">
+          <h2>
+            <i class="fas fa-calendar-alt"></i> 
+            Agenda du jour
+            <span class="view-all">Voir tout</span>
+          </h2>
+          
+          <div class="timeline">
+            <div *ngFor="let hour of hours" class="time-slot">
+              <div class="time">{{hour}}:00</div>
+              <div class="appointment">
+                <div *ngIf="getAppointment(hour)" class="appointment-card slide-in">
+                  <img src="assets/img/patient6.avif" alt="Patient" class="patient-avatar">
+                  <div class="appointment-details">
+                    <h4>Jean Dupont</h4>
+                    <p>Consultation générale</p>
+                    <span class="status-badge confirmed">Confirmé</span>
+                  </div>
+                  <div class="appointment-actions">
+                    <button class="action-btn" title="Dossier médical">
+                      <i class="fas fa-file-medical"></i>
+                    </button>
+                    <button class="action-btn primary" title="Commencer consultation">
+                      <i class="fas fa-play"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patients récents -->
+        <div class="patients-container">
+          <h2>
+            <i class="fas fa-user-friends"></i> 
+            Patients récents
+          </h2>
+          
+          <div class="patients-grid">
+            <div *ngFor="let patient of patients" class="patient-card hover-effect">
+              <img [src]="patient.avatar" [alt]="patient.name" class="patient-avatar">
+              <div class="patient-info">
+                <h4>{{patient.name}}</h4>
+                <p>Dernière visite: {{patient.lastVisit}}</p>
+                <div class="patient-meta">
+                  <span class="meta-item">
+                    <i class="fas fa-heartbeat"></i> {{patient.bloodGroup}}
+                  </span>
+                  <span class="meta-item">
+                    <i class="fas fa-pills"></i> {{patient.prescriptions}} ordonnances
+                  </span>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button class="btn-icon" title="Message">
+                  <i class="fas fa-comment-dots"></i>
+                </button>
+                <button class="btn-icon primary" title="Téléconsultation">
+                  <i class="fas fa-video"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Footer existant inchangé -->
+      <app-footer class="app-footer"></app-footer>
     </div>
   </div>
+</div>

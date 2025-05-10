@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-home-doctor',
@@ -7,56 +8,71 @@ import { Component } from '@angular/core';
   styleUrl: './home-doctor.component.scss'
 })
 export class HomeDoctorComponent {
-  features = [
-    { title: 'Rendez-vous en ligne', description: 'Réservez vos consultations médicales 24/7.' },
-    { title: 'Consultations vidéo', description: 'Discutez avec votre médecin à distance.' },
-    { title: 'Paiements sécurisés', description: 'Payez en toute sécurité vos prestations.' }
-  ];
-  selectedTab = 'medecins';
-
-  selectTab(tab: string) {
-    this.selectedTab = tab;
+  isLoggedInStatus = false;
+  ngOnInit() {
+    console.log("TEST CONNECTION  :  " , this.isLoggedIn)
+    this.isLoggedInStatus = this.authService.isAuthenticated();
+    this.checkAuthStatus();
+    // S'abonner aux changements d'état d'authentification
+    this.authService.currentUser$.subscribe(() => {
+      this.checkAuthStatus();
+    });
   }
-  doctors = [
+
+  private checkAuthStatus() {
+    this.isLoggedInStatus = this.authService.isAuthenticated();
+  }
+ 
+constructor(public authService: AuthService
+) {}
+
+  get currentUser() {
+    return this.authService.getCurrentUser();
+  }
+
+  get isLoggedIn() {
+    return this.isLoggedInStatus; // Utilisez maintenant la propriété locale
+  }
+
+
+  hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+  
+  patients = [
     {
-      name: 'Dr Bouaziz Safouen',
-      speciality: 'ORL Et Stomatologue',
-      city: 'Sfax',
-      zone: 'Sfax Ville',
-      image: '../assets/img/utilisateurConnecte.png'
+      name: 'Sophie Martin',
+      avatar: 'assets/img/patient1.avif',
+      lastVisit: '15/06/2023',
+      bloodGroup: 'A+',
+      prescriptions: 3
     },
     {
-      name: 'Dr Akrout Manal',
-      speciality: 'Endocrinologue',
-      city: 'Sfax',
-      zone: 'Sfax Ville',
-      image: 'assets/img/femme.avif'
+      name: 'Jean Dupont',
+      avatar: 'assets/img/patient2.jpg',
+      lastVisit: '14/06/2023',
+      bloodGroup: 'O-',
+      prescriptions: 5
+    },
+    {
+      name: 'Marie Lambert',
+      avatar: 'assets/img/patient3.avif',
+      lastVisit: '12/06/2023',
+      bloodGroup: 'B+',
+      prescriptions: 2
     }
   ];
 
-  specialities = [
-    { title: 'Cardiologie', description: 'Suivi cardiaque avancé', image: 'assets/img/cardio.jpg' },
-    { title: 'Pédiatrie', description: 'Soins pour enfants', image: 'assets/img/pediatrie.jpg' },
-    { title: 'Dermatologie', description: 'Soins de la peau', image: 'assets/img/dermato.jpg' },
-  ];
-
-  establishments = [
-    { name: 'Clinique du Parc', location: 'Paris 15', image: 'assets/img/clinic1.jpg' },
-    { name: 'Centre Médical Soleil', location: 'Lyon', image: 'assets/img/clinic2.jpg' },
-  ];
-
-  medicalNews = [
-    { title: 'Nouvelles recommandations COVID', summary: 'Les dernières mesures sanitaires...', link: '#' },
-    { title: 'Progrès en oncologie', summary: 'Des thérapies innovantes ont été testées...', link: '#' }
-  ];
-
-  testimonials = [
-    { name: 'Sophie M.', comment: 'Un accueil chaleureux et des soins de qualité ' },
-    { name: 'Jean D.', comment: 'Très satisfait de la téléconsultation, rapide et efficace.' }
-  ];
-
-  
-}
-
-
-
+  getAppointment(hour: number): any {
+    // Simulation de données
+    if (hour === 10) {
+      return {
+        patientName: 'Jean Dupont',
+        type: 'Consultation générale'
+      };
+    } else if (hour === 14) {
+      return {
+        patientName: 'Marie Lambert',
+        type: 'Suivi post-opératoire'
+      };
+    }
+    return null;
+  }}

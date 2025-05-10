@@ -12,49 +12,62 @@
     <button class="retry-btn" (click)="loadDoctors()">Réessayer</button>
   </div>
 
-  <!-- Doctors List -->
-  <div *ngIf="doctors.length > 0 && !loading" class="doctors-grid">
-    <div *ngFor="let doctor of doctors" class="doctor-card">
+  <!-- Doctor Profile -->
+  <div *ngIf="doctors.length > 0 && !loading" class="doctor-profile-wrapper">
+    <div class="doctor-card">
       <div class="doctor-header">
         <div class="doctor-avatar">
-          <img [src]="doctor.photo" 
-               [alt]="'Photo de ' + doctor.name"
+          <img [src]="currentDoctor.photo" 
+               [alt]="'Photo de ' + currentDoctor.name"
                class="avatar-img">
         </div>
         
         <div class="doctor-info">
-          <h2>{{ doctor.name }}</h2>
-          <div class="specialty-badge">{{ doctor.specialty }}</div>
+          <h2>{{ currentDoctor.name }}</h2>
+          <div class="specialty-badge">{{ currentDoctor.specialty }}</div>
           
           <div class="rating-container">
             <span class="stars">★★★★★</span>
-            <span class="rating-text">{{ doctor.rating }} ({{ doctor.reviewsCount }} avis)</span>
+            <span class="rating-text">{{ currentDoctor.rating }} ({{ currentDoctor.reviewsCount }} avis)</span>
           </div>
 
           <div class="education-info">
-            <p class="degree">{{ doctor.degree }}</p>
-            <p class="university">{{ doctor.university }}</p>
+            <p class="degree">{{ currentDoctor.degree }}</p>
+            <p class="university">{{ currentDoctor.university }}</p>
           </div>
         </div>
       </div>
 
       <div class="action-buttons">
         <button class="action-btn whatsapp" 
-                (click)="contactViaWhatsApp(doctor.contactInfo.whatsapp)"
-                [disabled]="!doctor.contactInfo.whatsapp">
+                (click)="contactViaWhatsApp(currentDoctor.contactInfo.whatsapp)"
+                [disabled]="!currentDoctor.contactInfo.whatsapp">
           <i class="bi bi-whatsapp"></i> WhatsApp
         </button>
         <button class="action-btn call" 
-                (click)="contactViaPhone(doctor.contactInfo.phone)"
-                [disabled]="!doctor.contactInfo.phone">
+                (click)="contactViaPhone(currentDoctor.contactInfo.phone)"
+                [disabled]="!currentDoctor.contactInfo.phone">
           <i class="bi bi-telephone"></i> Appel
         </button>
         <button class="action-btn email" 
-                (click)="contactViaEmail(doctor.contactInfo.email)"
-                [disabled]="!doctor.contactInfo.email">
+                (click)="contactViaEmail(currentDoctor.contactInfo.email)"
+                [disabled]="!currentDoctor.contactInfo.email">
           <i class="bi bi-envelope"></i> Email
         </button>
       </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <button class="nav-btn prev" (click)="prevDoctor()" [disabled]="doctors.length <= 1">
+        <i class="bi bi-chevron-left"></i> Précédent
+      </button>
+      <span class="doctor-counter">
+        {{ currentIndex + 1 }} / {{ doctors.length }}
+      </span>
+      <button class="nav-btn next" (click)="nextDoctor()" [disabled]="doctors.length <= 1">
+        Suivant <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
   </div>
 

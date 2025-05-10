@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DoctorService } from '../../doctors/doctor.service';
 
 @Component({
@@ -8,8 +7,9 @@ import { DoctorService } from '../../doctors/doctor.service';
   templateUrl: './doctor-profile.component.html',
   styleUrl: './doctor-profile.component.scss'
 })
-export class DoctorProfileComponent  implements OnInit {
+export class DoctorProfileComponent implements OnInit {
   doctors: any[] = [];
+  currentIndex = 0;
   loading = true;
   error: string | null = null;
 
@@ -52,6 +52,26 @@ export class DoctorProfileComponent  implements OnInit {
       rating: doctor.rating || 4.8,
       reviewsCount: doctor.reviewsCount || 24
     }));
+  }
+
+  get currentDoctor(): any {
+    return this.doctors[this.currentIndex];
+  }
+
+  nextDoctor(): void {
+    if (this.currentIndex < this.doctors.length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0; // Revenir au début si on est à la fin
+    }
+  }
+
+  prevDoctor(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.doctors.length - 1; // Aller à la fin si on est au début
+    }
   }
 
   contactViaWhatsApp(whatsappNumber: string) {

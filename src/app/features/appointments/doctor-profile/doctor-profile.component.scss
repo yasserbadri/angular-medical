@@ -4,6 +4,49 @@
   padding: 1rem;
   font-family: 'Poppins', sans-serif;
 
+  .doctor-profile-wrapper {
+    position: relative;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 0 1rem;
+
+    .nav-btn {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s;
+
+      &:hover:not(:disabled) {
+        background-color: #3a0ca3;
+      }
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+
+    .doctor-counter {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  }
+
   .loading-state {
     text-align: center;
     padding: 2rem;

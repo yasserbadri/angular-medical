@@ -1,0 +1,53 @@
+<div class="patient-list-container">
+  <div class="header-section">
+    <h2><i class="bi bi-people-fill"></i> Mes patients</h2>
+    <div class="search-filter">
+      <input type="text" placeholder="Rechercher un patient..." class="search-input">
+      <button class="filter-btn"><i class="bi bi-funnel"></i> Filtres</button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error }}</span>
+    <button (click)="retryLoading()" class="retry-btn">Réessayer</button>
+  </div>
+
+  <div *ngIf="patients.length > 0; else noPatients" class="patients-grid">
+    <div *ngFor="let patient of patients" class="patient-card">
+      <div class="patient-avatar">
+        <img [src]="patient.profileImage || 'assets/default-avatar.png'" alt="Photo de profil">
+      </div>
+      
+      <div class="patient-info">
+        <h3>{{ patient.firstName }} {{ patient.lastName }}</h3>
+        <p class="patient-meta">
+          <span><i class="bi bi-envelope"></i> {{ patient.email }}</span>
+          <span *ngIf="patient.phone"><i class="bi bi-telephone"></i> {{ patient.phone }}</span>
+        </p>
+        
+        <div *ngIf="appointmentDate" class="appointment-badge">
+          <i class="bi bi-calendar-check"></i>
+          <span>RDV le {{ appointmentDate | date: 'dd/MM/yyyy à HH:mm' }}</span>
+        </div>
+      </div>
+      
+      <div class="patient-actions">
+        <button class="action-btn message"><i class="bi bi-chat-left-text"></i></button>
+        <button class="action-btn call"><i class="bi bi-telephone"></i></button>
+        <button class="action-btn more"><i class="bi bi-three-dots-vertical"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPatients>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="bi bi-person-x"></i>
+      </div>
+      <h3>Aucun patient trouvé</h3>
+      <p>Vous n'avez pas encore de patients enregistrés ou correspondant à vos critères.</p>
+      <button class="primary-btn">Inviter un patient</button>
+    </div>
+  </ng-template>
+</div>

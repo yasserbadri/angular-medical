@@ -123,48 +123,6 @@ async onSubmit(): Promise<void> {
     this.isLoading = false;
   }
 }
-/*
-  onSubmit(): void {
-    if (this.profileForm.invalid) {
-      this.markAllAsTouched();
-      this.errorMessage = 'Veuillez remplir tous les champs obligatoires correctement';
-      return;
-    }
-  
-    this.isLoading = true;
-    this.errorMessage = '';
-    const formData = new FormData();
-  
-    // Ajouter les champs du formulaire
-    Object.keys(this.profileForm.value).forEach(key => {
-      const value = this.profileForm.get(key)?.value;
-      formData.append(key, value !== null ? value : '');
-    });
-  
-    // Ajouter le fichier si sélectionné
-    if (this.selectedFile) {
-      formData.append('profilePhoto', this.selectedFile);
-    }
-  
-    this.doctorService.completeProfile(formData).subscribe({
-      next: (response: { user?: any; data?: any }) => {
-        const userData = response.user || response.data || response;
-        this.authService.updateUserProfile(userData);
-        this.showSuccessMessage = true;
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 2000);
-      },
-      error: (err) => {
-        console.error('Error:', err);
-        this.errorMessage = err.error?.message || 'Erreur lors de la mise à jour du profil';
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
-  }*/
 
   markAllAsTouched(): void {
     Object.values(this.profileForm.controls).forEach(control => {
@@ -178,7 +136,6 @@ async onSubmit(): Promise<void> {
   }
 
   nextStep(): void {
-    // Valider seulement les champs de l'étape actuelle avant de continuer
     if (this.currentStep === 1) {
       const step1Fields = ['speciality', 'description', 'diploma'];
       if (step1Fields.some(field => this.profileForm.get(field)?.invalid)) {

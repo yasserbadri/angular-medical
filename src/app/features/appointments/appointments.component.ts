@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../Models/user';
+import { Observable } from 'rxjs';
 
 interface Appointment {
   id?: number;
@@ -59,6 +61,7 @@ export class AppointmentsComponent implements OnInit {
       });
     }
   }
+  
 
   /*onSubmit(): void {
     if (this.formData.id) {

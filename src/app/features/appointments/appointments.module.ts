@@ -39,7 +39,7 @@ import { DoctorDetailsComponent } from './doctor-details/doctor-details.componen
     AppointmentsRoutingModule,
     FormsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
 
   ],
   exports: [

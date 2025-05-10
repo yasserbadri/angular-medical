@@ -23,6 +23,7 @@ import { MedicalServiceCreateComponent } from './features/services/medical-servi
 import { MedicalServiceManagerComponent } from './features/services/medical-service-manager/medical-service-manager.component';
 import { MedicalServiceListComponent } from './features/services/medical-service-list/medical-service-list.component';
 import { DoctorProfileComponent } from './features/appointments/doctor-profile/doctor-profile.component';
+import { PatientListComponent } from './features/doctor-page/patient-list/patient-list.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,13 @@ const routes: Routes = [
     component: MedicalServiceCreateComponent,
     data: { title: 'Créer un nouveau service' }
   },
+  { 
+    path: 'patients', 
+    component: PatientListComponent,
+    data: { title: 'les patients qui sont reservé un rendez vous' }
+  },
+  
+ 
   /*{ 
     path: 'services/manage/:id', 
     component: MedicalServiceManagerComponent,

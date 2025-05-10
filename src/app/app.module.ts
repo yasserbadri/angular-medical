@@ -37,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { ConfirmDialogComponent } from './features/services/confirm-dialog/confirm-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -67,7 +68,7 @@ import { ConfirmDialogComponent } from './features/services/confirm-dialog/confi
     
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     LayoutModule,
     AuthModule,
@@ -87,6 +88,7 @@ import { ConfirmDialogComponent } from './features/services/confirm-dialog/confi
     
     MatSnackBarModule,
     MatCardModule,
+    BrowserAnimationsModule,
     
     
     
@@ -99,8 +101,10 @@ import { ConfirmDialogComponent } from './features/services/confirm-dialog/confi
     DoctorProfileGuard,AuthService,{
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }],
+      multi: true,
+      
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

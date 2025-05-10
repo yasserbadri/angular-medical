@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../appointments.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
+import { AppointmentDataService } from './appointment-data.service';
 
 @Component({
   selector: 'app-appointment-booking',
@@ -17,10 +18,11 @@ export class AppointmentBookingComponent implements OnInit {
   loading = false;
   today = new Date().toISOString().split('T')[0];
 
+
   constructor(
     private appointmentService: AppointmentService,  private authService: AuthService, // Ajoutez ce service
     
-    private fb: FormBuilder
+    private fb: FormBuilder,private appointmentDataService: AppointmentDataService
   ) {
     this.appointmentForm = this.fb.group({
       doctorId: ['', Validators.required],
@@ -103,6 +105,8 @@ export class AppointmentBookingComponent implements OnInit {
     const appointmentDateTime = new Date(formValue.date);
     const [hours, minutes] = formValue.time.split(':');
     appointmentDateTime.setHours(parseInt(hours), parseInt(minutes));
+    this.appointmentDataService.setAppointmentDate(appointmentDateTime.toISOString());
+
 
     const appointmentData = {
       patientId: currentUser.id, // Utilisez l'ID de l'utilisateur connecté
@@ -112,6 +116,10 @@ export class AppointmentBookingComponent implements OnInit {
       description: formValue.description,
       appointmentType: formValue.appointmentType
     };
+    console.log('Rendez-vous créé à :', appointmentData.date); 
+
+    this.appointmentDataService.setAppointmentDate(appointmentData.date);  // Ajout de cette ligne
+
 
     this.loading = true;
     this.appointmentService.createAppointment(appointmentData).subscribe({
