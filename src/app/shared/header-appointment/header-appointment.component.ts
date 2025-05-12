@@ -72,6 +72,30 @@ toggleMobileMenu() {
 constructor(public authService: AuthService, private router: Router,   private location: Location
 ) {}
 
+navigateToHome() {
+  if (!this.authService.isLoggedIn()) {
+    this.router.navigate(['/']);
+  } else if (this.authService.isDoctor()) {
+    this.router.navigate(['/doctor/dashboard']);
+  } else if (this.authService.isPatient()) {
+    this.router.navigate(['/patient/dashboard']);
+  }
+}
+
+// Modifiez votre méthode isActive pour gérer le cas spécial de l'accueil
+isActivee(route: string): boolean {
+  if (route === '/') {
+    if (this.authService.isDoctor()) {
+      return this.router.url === '/doctor/dashboard';
+    } else if (this.authService.isPatient()) {
+      return this.router.url === '/patient/dashboard';
+    }
+    return this.router.url === '/';
+  }
+  return this.router.url.startsWith(route);
+}
+
+
   get currentUser() {
     return this.authService.getCurrentUser();
   }

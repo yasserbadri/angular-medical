@@ -43,7 +43,7 @@ export class DoctorProfileComponent implements OnInit {
       specialty: doctor.speciality || 'Généraliste',
       university: doctor.diploma || 'Diplôme non spécifié',
       degree: doctor.description || 'Médecin qualifié',
-      photo: doctor.profilePhotoUrl || 'assets/images/default-doctor.png',
+      photo: doctor.profilePhotoUrl || 'assets/img/mediconnect-logo.png',
       contactInfo: {
         phone: doctor.phoneNumber,
         whatsapp: doctor.whatsappNumber,

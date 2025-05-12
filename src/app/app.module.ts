@@ -37,7 +37,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { ConfirmDialogComponent } from './features/services/confirm-dialog/confirm-dialog.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+  import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './features/profile/profile.component';
+import { ProfilComponent } from './features/profil/profil.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -56,6 +58,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           MedicalServiceCreateComponent,
           MedicalServiceManagerComponent,
           MedicalServiceListComponent,
+          ProfileComponent,
+          ProfilComponent,
           
 
     

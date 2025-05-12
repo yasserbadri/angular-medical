@@ -1,0 +1,32 @@
+<div class="container" *ngIf="profile; else loading">
+  <h2>Mon Profil</h2>
+
+  <div class="profile-section">
+    <img *ngIf="profile.baseProfile?.profilePhotoUrl" 
+         [src]="'http://localhost:5278'+profile.baseProfile.profilePhotoUrl" 
+         alt="Photo de profil" 
+         class="profile-img">
+    <p><strong>Prénom:</strong> {{ profile.baseProfile?.firstName }}</p>
+    <p><strong>Nom:</strong> {{ profile.baseProfile?.lastName }}</p>
+    <p><strong>Email:</strong> {{ profile.baseProfile?.email }}</p>
+    <p><strong>Téléphone:</strong> {{ profile.baseProfile?.phoneNumber }}</p>
+    <p><strong>Rôle:</strong> {{ profile.baseProfile?.role }}</p>
+
+    <div *ngIf="isDoctor()">
+      <h3>Informations Médecin</h3>
+      <p><strong>Spécialité:</strong> {{ profile.doctorDetails?.speciality }}</p>
+      <p><strong>Description:</strong> {{ profile.doctorDetails?.description }}</p>
+      <p><strong>Diplôme:</strong> {{ profile.doctorDetails?.diploma }}</p>
+      <p><strong>Généraliste:</strong> {{ profile.doctorDetails?.isGeneralist ? 'Oui' : 'Non' }}</p>
+      <p><strong>WhatsApp:</strong> {{ profile.doctorDetails?.whatsappNumber }}</p>
+      <p><strong>Facebook:</strong> <a [href]="profile.doctorDetails?.facebookUrl" target="_blank">{{ profile.doctorDetails?.facebookUrl }}</a></p>
+      <p><strong>Instagram:</strong> <a [href]="profile.doctorDetails?.instagramUrl" target="_blank">{{ profile.doctorDetails?.instagramUrl }}</a></p>
+      <p><strong>Site Web:</strong> <a [href]="profile.doctorDetails?.websiteUrl" target="_blank">{{ profile.doctorDetails?.websiteUrl }}</a></p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p *ngIf="!errorMessage">Chargement du profil...</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</ng-template>

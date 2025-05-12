@@ -13,12 +13,12 @@
     <nav class="header-nav">
       <ul class="nav-list">
         <!-- Accueil -->
-    <li class="nav-item" [class.active]="isActive('/')">
-      <a routerLink="/" class="nav-link">
-        <i class="fas fa-home"></i>
-        <span>Accueil</span>
-      </a>
-    </li>
+        <li class="nav-item" [class.active]="isActive('/')">
+          <a (click)="navigateToHome()" class="nav-link" style="cursor: pointer;">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
         <!-- Services -->
     <li class="nav-item" [class.active]="isActive('/services')">
       <a routerLink="/services" class="nav-link">

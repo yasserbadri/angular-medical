@@ -10,7 +10,6 @@ import { AppointmentsComponent } from './features/appointments/appointments.comp
 import { DoctorProfileFormComponent } from './features/users/doctor-profile-form/doctor-profile-form.component';
 import { DoctorProfileGuard } from './features/users/doctor-profile-form/doctor-profile.guard';
 import { AuthGuard } from './features/auth/auth.guard';
-import { ProfileComponent } from './features/profile/profile.component';
 import { MedicalRecordListComponent } from './features/MedicalRecord/medical-record-list/medical-record-list.component';
 import { MedicalRecordCreateComponent } from './features/MedicalRecord/medical-record-create/medical-record-create.component';
 import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
@@ -24,6 +23,8 @@ import { MedicalServiceManagerComponent } from './features/services/medical-serv
 import { MedicalServiceListComponent } from './features/services/medical-service-list/medical-service-list.component';
 import { DoctorProfileComponent } from './features/appointments/doctor-profile/doctor-profile.component';
 import { PatientListComponent } from './features/doctor-page/patient-list/patient-list.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { ProfilComponent } from './features/profil/profil.component';
 
 const routes: Routes = [
 
@@ -80,7 +81,6 @@ const routes: Routes = [
   //{ path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
   { path: 'doctor/dashboard', component: HomeDoctorComponent, canActivate: [AuthGuard, DoctorGuard] },
   { path: 'patient/dashboard', component: HomePatientComponent, canActivate: [AuthGuard] },
   { path: 'medecins', component: DoctorListComponent },
@@ -89,6 +89,8 @@ const routes: Routes = [
     component: DoctorProfileFormComponent
     
   },
+  {path:'profile',component: ProfileComponent},
+  {path:'profil',component:ProfilComponent},
   { path: 'medical-records', component: MedicalRecordListComponent },
   { path: 'medical-records/create', component: MedicalRecordCreateComponent },
   { path: 'doctor/:id', component: DoctorProfileComponent }

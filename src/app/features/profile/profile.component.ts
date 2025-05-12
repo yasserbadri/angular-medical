@@ -1,74 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService, UserProfile } from './profile.service';
+import { ProfileService } from './profile.service';
 import { AuthService } from '../auth/auth.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
+import { ProfileResponse } from '../../Models/profile.interface';
 
 @Component({
   selector: 'app-profile',
+  standalone: false,
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule,SharedModule] // Ajoutez ceci
-
+  styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  profile: UserProfile | null = null;
-    profileForm: FormGroup;
-  selectedFile: File | null = null;
+  profile: any ;
+  loading = true;
+  error = '';
+  isDoctor = false;
 
   constructor(
     private profileService: ProfileService,
-    private authService: AuthService,
-    private fb: FormBuilder
-  ) {
-    this.profileForm = this.fb.group({
-      firstName: [''],
-      lastName: [''],
-      phone: ['']
-    });
-  }
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.loadProfile();
+    this.isDoctor = this.authService.isDoctor();
   }
 
-  loadProfile() {
+  loadProfile(): void {
     this.profileService.getProfile().subscribe({
-      next: (profile: UserProfile) => {
-        this.profile = profile;
-        this.profileForm.patchValue({
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          phone: profile.phoneNumber || ''
-        });
+      next: (response) => {
+        this.profile = response;
+        this.loading = false;
+        console.log('Profil chargé avec succès:', this.profile);
       },
-      error: (err) => console.error('Failed to load profile', err)
+      error: (err) => {
+        this.error = err.message || 'Erreur lors du chargement du profil';
+        this.loading = false;
+        console.error('Détails erreur:', err);
+      }
     });
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  uploadPhoto() {
-    if (this.selectedFile && this.profile) {
-      this.profileService.uploadPhoto(this.selectedFile).subscribe({
-        next: (response: any) => {
-          if (this.profile) {
-            this.profile.profilePhotoUrl = response.photoUrl;
-          }
-        },
-        error: (err) => console.error('Upload failed', err)
-      });
-    }
-  }
-  onSubmit() {
-    this.profileService.updateProfile(this.profileForm.value).subscribe({
-      next: () => {
-        this.loadProfile(); // Refresh profile data
-      },
-      error: (err) => console.error('Update failed', err)
-    });
+  isProfileComplete(): boolean {
+    return this.authService.isProfileComplete();
   }
 }

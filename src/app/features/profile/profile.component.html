@@ -1,46 +1,74 @@
-<app-header-appointment></app-header-appointment>
+<p>profile works!</p>
 <div class="profile-container">
-    <div class="profile-header">
-      <div class="profile-photo">
-        <img [src]="profile?.profilePhotoUrl || 'assets/default-profile.png'" alt="Profile Photo">
-        <div class="photo-upload">
-          <input type="file" (change)="onFileSelected($event)" accept="image/*">
-          <button (click)="uploadPhoto()">Upload Photo</button>
-        </div>
-      </div>
-      <h2>{{ profile?.firstName }} {{ profile?.lastName }}</h2>
-      <p>{{ profile?.email }}</p>
-      <p *ngIf="profile?.role === 'Doctor'">{{ profile?.speciality }}</p>
+  <div *ngIf="loading" class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
     </div>
-  
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" formControlName="firstName">
-      </div>
-  
-      <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" formControlName="lastName">
-      </div>
-  
-      <div class="form-group">
-        <label>Phone</label>
-        <input type="tel" formControlName="phone">
-      </div>
-  
-      <div *ngIf="profile?.role === 'Doctor'" class="doctor-fields">
-        <div class="form-group">
-          <label>Speciality</label>
-          <p>{{ profile?.speciality }}</p>
-        </div>
-  
-        <div class="form-group">
-          <label>Description</label>
-          <p>{{ profile?.description }}</p>
-        </div>
-      </div>
-  
-      <button type="submit">Update Profile</button>
-    </form>
   </div>
+
+  <div *ngIf="error" class="alert alert-danger mt-3">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && profile?.BaseProfile" class="card profile-card">
+    <div class="card-header">
+      <h2>Mon Profil</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <img [src]="profile.BaseProfile.ProfilePhotoUrl || 'assets/images/default-profile.png'" 
+               alt="Photo de profil" 
+               class="profile-image rounded-circle mb-3">
+          <h3>{{ profile.BaseProfile.FirstName }} {{ profile.BaseProfile.LastName }}</h3>
+          <p class="text-muted">{{ profile.BaseProfile.Role }}</p>
+        </div>
+        <div class="col-md-8">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>Email:</strong> {{ profile.BaseProfile.Email }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Téléphone:</strong> {{ profile.BaseProfile.PhoneNumber || 'Non renseigné' }}</p>
+            </div>
+          </div>
+
+          <!-- Section spécifique aux médecins -->
+          <div *ngIf="profile.BaseProfile.Role === 'Doctor' && profile.DoctorDetails" class="doctor-section mt-4">
+            <h4>Informations professionnelles</h4>
+            <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Spécialité:</strong> {{ profile.DoctorDetails.Speciality }}</p>
+                <p><strong>Diplôme:</strong> {{ profile.DoctorDetails.Diploma }}</p>
+                <p><strong>Type:</strong> {{ profile.DoctorDetails.IsGeneralist ? 'Généraliste' : 'Spécialiste' }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>WhatsApp:</strong> {{ profile.DoctorDetails.WhatsappNumber || 'Non renseigné' }}</p>
+                <p *ngIf="profile.DoctorDetails.WebsiteUrl">
+                  <strong>Site web:</strong> 
+                  <a [href]="profile.DoctorDetails.WebsiteUrl" target="_blank">{{ profile.DoctorDetails.WebsiteUrl }}</a>
+                </p>
+              </div>
+            </div>
+            <div class="mt-3">
+              <h5>Description</h5>
+              <p>{{ profile.DoctorDetails.Description || 'Aucune description' }}</p>
+            </div>
+            <div class="social-links mt-3">
+              <a *ngIf="profile.DoctorDetails.FacebookUrl" [href]="profile.DoctorDetails.FacebookUrl" target="_blank" class="btn btn-outline-primary me-2">
+                <i class="bi bi-facebook"></i> Facebook
+              </a>
+              <a *ngIf="profile.DoctorDetails.InstagramUrl" [href]="profile.DoctorDetails.InstagramUrl" target="_blank" class="btn btn-outline-danger me-2">
+                <i class="bi bi-instagram"></i> Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <button class="btn btn-primary" routerLink="/profile/edit">Modifier le profil</button>
+    </div>
+  </div>
+</div>
