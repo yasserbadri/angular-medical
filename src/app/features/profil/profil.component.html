@@ -1,32 +1,60 @@
-<div class="container" *ngIf="profile; else loading">
-  <h2>Mon Profil</h2>
+<div class="profile-container" *ngIf="profile; else loading">
+  <div class="profile-header shadow-sm">
+    <div class="profile-photo-section">
+      <img *ngIf="profile.baseProfile?.profilePhotoUrl"
+           [src]="'http://localhost:5278'+profile.baseProfile.profilePhotoUrl"
+           alt="Photo de profil"
+           class="profile-img">
+    </div>
+    <div class="profile-info-section">
+      <h2 class="profile-name">{{ profile.baseProfile?.firstName }} {{ profile.baseProfile?.lastName }}</h2>
+      <p class="profile-role badge bg-info">{{ profile.baseProfile?.role }}</p>
+      <p class="profile-email text-muted"><i class="bi bi-envelope me-2"></i>{{ profile.baseProfile?.email }}</p>
+      <p class="profile-phone text-muted"><i class="bi bi-telephone me-2"></i>{{ profile.baseProfile?.phoneNumber }}</p>
+    </div>
+  </div>
 
-  <div class="profile-section">
-    <img *ngIf="profile.baseProfile?.profilePhotoUrl" 
-         [src]="'http://localhost:5278'+profile.baseProfile.profilePhotoUrl" 
-         alt="Photo de profil" 
-         class="profile-img">
-    <p><strong>Prénom:</strong> {{ profile.baseProfile?.firstName }}</p>
-    <p><strong>Nom:</strong> {{ profile.baseProfile?.lastName }}</p>
-    <p><strong>Email:</strong> {{ profile.baseProfile?.email }}</p>
-    <p><strong>Téléphone:</strong> {{ profile.baseProfile?.phoneNumber }}</p>
-    <p><strong>Rôle:</strong> {{ profile.baseProfile?.role }}</p>
+  <div *ngIf="isDoctor()" class="doctor-section shadow-sm">
+    <h3 class="section-title">Informations Médecin</h3>
+    <div class="doctor-details">
+      <p><strong>Spécialité :</strong> {{ profile.doctorDetails?.speciality }}</p>
+      <p>
+        <strong>Généraliste :</strong> 
+        <span class="badge" 
+              [ngClass]="{ 'bg-success': profile.doctorDetails?.isGeneralist, 'bg-secondary': !profile.doctorDetails?.isGeneralist }">
+          {{ profile.doctorDetails?.isGeneralist ? 'Oui' : 'Non' }}
+        </span>
+      </p>
+      <p><strong>Diplôme :</strong> {{ profile.doctorDetails?.diploma }}</p>
+      <p><strong>WhatsApp :</strong> {{ profile.doctorDetails?.whatsappNumber }}</p>
+      <p><strong>Description :</strong></p>
+      <div class="description-box">{{ profile.doctorDetails?.description }}</div>
 
-    <div *ngIf="isDoctor()">
-      <h3>Informations Médecin</h3>
-      <p><strong>Spécialité:</strong> {{ profile.doctorDetails?.speciality }}</p>
-      <p><strong>Description:</strong> {{ profile.doctorDetails?.description }}</p>
-      <p><strong>Diplôme:</strong> {{ profile.doctorDetails?.diploma }}</p>
-      <p><strong>Généraliste:</strong> {{ profile.doctorDetails?.isGeneralist ? 'Oui' : 'Non' }}</p>
-      <p><strong>WhatsApp:</strong> {{ profile.doctorDetails?.whatsappNumber }}</p>
-      <p><strong>Facebook:</strong> <a [href]="profile.doctorDetails?.facebookUrl" target="_blank">{{ profile.doctorDetails?.facebookUrl }}</a></p>
-      <p><strong>Instagram:</strong> <a [href]="profile.doctorDetails?.instagramUrl" target="_blank">{{ profile.doctorDetails?.instagramUrl }}</a></p>
-      <p><strong>Site Web:</strong> <a [href]="profile.doctorDetails?.websiteUrl" target="_blank">{{ profile.doctorDetails?.websiteUrl }}</a></p>
+      <div class="social-links mt-3">
+        <a *ngIf="profile.doctorDetails?.facebookUrl" [href]="profile.doctorDetails?.facebookUrl" target="_blank" class="btn btn-outline-primary">
+          <i class="bi bi-facebook me-1"></i> Facebook
+        </a>
+        <a *ngIf="profile.doctorDetails?.instagramUrl" [href]="profile.doctorDetails?.instagramUrl" target="_blank" class="btn btn-outline-danger">
+          <i class="bi bi-instagram me-1"></i> Instagram
+        </a>
+        <a *ngIf="profile.doctorDetails?.websiteUrl" [href]="profile.doctorDetails?.websiteUrl" target="_blank" class="btn btn-outline-info">
+          <i class="bi bi-globe me-1"></i> Site Web
+        </a>
+      </div>
     </div>
   </div>
 </div>
 
 <ng-template #loading>
-  <p *ngIf="!errorMessage">Chargement du profil...</p>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  <div class="loading-wrapper">
+    <div class="text-center">
+      <div *ngIf="!errorMessage" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+      <p *ngIf="!errorMessage" class="mt-3">Chargement du profil...</p>
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
 </ng-template>
