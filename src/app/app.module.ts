@@ -42,6 +42,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ProfilComponent } from './features/profil/profil.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
 import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
+import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -64,6 +65,7 @@ import { DoctorCardComponent } from './components/doctor-card/doctor-card.compon
           ProfilComponent,
           PatientCardComponent,
           DoctorCardComponent,
+          AppointmentListComponent,
           
 
     
