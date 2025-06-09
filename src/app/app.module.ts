@@ -40,6 +40,7 @@ import { ConfirmDialogComponent } from './features/services/confirm-dialog/confi
   import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './features/profile/profile.component';
 import { ProfilComponent } from './features/profil/profil.component';
+import { PatientCardComponent } from './components/patient-card/patient-card.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -60,6 +61,7 @@ import { ProfilComponent } from './features/profil/profil.component';
           MedicalServiceListComponent,
           ProfileComponent,
           ProfilComponent,
+          PatientCardComponent,
           
 
     
