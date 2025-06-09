@@ -41,6 +41,7 @@ import { ConfirmDialogComponent } from './features/services/confirm-dialog/confi
 import { ProfileComponent } from './features/profile/profile.component';
 import { ProfilComponent } from './features/profil/profil.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
+import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -62,6 +63,7 @@ import { PatientCardComponent } from './components/patient-card/patient-card.com
           ProfileComponent,
           ProfilComponent,
           PatientCardComponent,
+          DoctorCardComponent,
           
 
     
