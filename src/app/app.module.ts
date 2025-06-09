@@ -44,6 +44,9 @@ import { PatientCardComponent } from './components/patient-card/patient-card.com
 import { DoctorCardComponent } from './components/doctor-card/doctor-card.component';
 import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 import { AddPatientComponent } from './components/add-patient/add-patient.component';
+import { AppointmentBookingFormComponent } from './components/appointment-booking-form/appointment-booking-form.component';
+import { PatientDetailsComponent } from './components/patient-details/patient-details.component';
+import { DoctorDetailsComponent } from './components/doctor-details/doctor-details.component';
 
 //import { MedicalRecordModule } from './features/MedicalRecord/medical-record.module';
 
@@ -68,6 +71,9 @@ import { AddPatientComponent } from './components/add-patient/add-patient.compon
           DoctorCardComponent,
           AppointmentListComponent,
           AddPatientComponent,
+          AppointmentBookingFormComponent,
+          PatientDetailsComponent,
+          DoctorDetailsComponent,
           
 
     
